@@ -2,8 +2,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
@@ -23,7 +21,7 @@
             body::before {
                 content: "";
                 background: inherit;
-                filter: blur(5px); /* Adjust the blur radius as needed */
+                filter: blur(5px); 
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -35,7 +33,6 @@
 </head>
 <body>
    
-
     @if (TempData["LoginMessage"] != null)
     {       
         <script>
@@ -151,31 +148,26 @@
 
             if (emailValue === "") {
                 setError(email, "Email is required");
-                return false; // Validation failed
+                return false; 
             } else if (!isValidEmail(emailValue)) {
                 setError(email, "Provide a valid email address");
-                return false; // Validation failed
+                return false; 
             } else {
                 setSuccess(email);
             }
 
             if (passwordValue === "") {
                 setError(password, "Password is required");
-                return false; // Validation failed
+                return false; 
             } else if (passwordValue.length < 8) {
                 setError(password, "Password must be at least 8 characters.");
-                return false; // Validation failed
+                return false; 
             } else {
                 setSuccess(password);
             }
 
             return true; // Validation succeeded
         };
-
-
-
-
     </script>
-
 </body>
 </html>

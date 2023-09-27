@@ -232,7 +232,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_SecondLayout.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Registration\Create.cshtml" />
     <Content Include="Views\Registration\List.cshtml" />
