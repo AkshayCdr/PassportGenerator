@@ -53,23 +53,9 @@ namespace PassportGenerator
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-
-                // Define your SQL query
-                //    string sqlQuery = @"
-                //SELECT ur.Role
-                //FROM Registration r
-                //INNER JOIN UserRole ur ON r.id = ur.UserId
-                //WHERE r.Email = @email";
-
-
-//                string sqlQuery = @"SELECT Roles.Role
-//FROM Registrations
-//INNER JOIN Roles ON Registrations.id = Roles.RegistrationId
-//WHERE Registrations.Email = @email";
                 using (SqlCommand command = new SqlCommand("SPS_RolesEmail", connection))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    // Add a parameter for the username
                     command.Parameters.AddWithValue("@Email", email);
 
                     using (SqlDataReader reader = command.ExecuteReader())

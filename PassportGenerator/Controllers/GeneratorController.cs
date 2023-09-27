@@ -46,6 +46,10 @@ namespace PassportGenerator.Controllers
                 {
                     return View(list);
                 }
+                else
+                {
+                    return RedirectToAction("List");
+                }
             }
             return View(list);
         }

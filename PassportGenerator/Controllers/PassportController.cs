@@ -34,7 +34,6 @@ namespace PassportGenerator.Controllers
         /// <returns></returns>
         public ActionResult UserList(string email)
         {
-
             var data = passportRepository.GetUsers(email);
             return View(data);
         }

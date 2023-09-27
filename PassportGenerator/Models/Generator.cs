@@ -23,5 +23,6 @@ namespace PassportGenerator.Models
         public int RegistrationId { get; set; }
        
 
+
     }
 }

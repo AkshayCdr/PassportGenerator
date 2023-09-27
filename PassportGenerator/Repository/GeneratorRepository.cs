@@ -14,12 +14,14 @@ using Image = iTextSharp.text.Image;
 using iTextSharp.text.pdf.qrcode;
 using System.Drawing.Imaging;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 
 namespace PassportGenerator.Repository
 {
     public class GeneratorRepository
     {
 
+        //SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
         SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
         SqlCommand command;
         SqlDataAdapter adapter;
@@ -39,9 +41,7 @@ namespace PassportGenerator.Repository
                 adapter = new SqlDataAdapter(command);
                 table = new DataTable();
                 adapter.Fill(table);
-
-                
-
+               
                 foreach(DataRow table in table.Rows)
                 {
                     DateTime dobWithTime = DateTime.Parse(table["Dob"].ToString());
@@ -80,13 +80,24 @@ namespace PassportGenerator.Repository
         /// <returns></returns>
         public bool GeneratePassport(Generator generator)
         {
+
+            string randomString = RandomStringGenerator.GenerateRandomString();
+            //if already generated return false
+            if (checkPassportGenerated(generator.RegistrationId))
+            {
+                InsertIntoGenerator(generator, randomString);
+            }
+            else
+            {
+                return false;
+            }
+
+
             var location = "C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay10\\PassportGenerator\\PassportGenerator\\Passport\\";
             var fileName = $"{generator.FirstName}_{generator.LastName}_Passport.pdf"; // PDF file format
             var fileNameImg = $"{generator.FirstName}_{generator.LastName}_Passport.jpg"; // PDF file format
             var filePath = Path.Combine(location, fileName);
             var filePathImg = Path.Combine(location, fileNameImg);
-
-
             createImage(generator, filePathImg);
 
             Document doc = null;
@@ -94,9 +105,6 @@ namespace PassportGenerator.Repository
 
             try
             {
-                
-
-
                 doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
                 writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
                 doc.Open();
@@ -105,10 +113,8 @@ namespace PassportGenerator.Repository
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
 
                 img.ScaleToFit(50f, 50f);
-                
+               
                 doc.Add(img);
-
-
 
                 //var passportContent = $"Passport Information:\n" +
                 //                                      $"ID: {generator.Id}\n" +
@@ -124,12 +130,11 @@ namespace PassportGenerator.Repository
                 //var paragraph = new Paragraph(passportContent);
                 //doc.Add(paragraph);
 
-                string randomString = RandomStringGenerator.GenerateRandomString();
+                
 
                 List list = new List(List.UNORDERED);
 
                 list.IndentationLeft = 35f;
-
 
                 list.Add(randomString);
                 list.Add(generator.FirstName);
@@ -137,11 +142,6 @@ namespace PassportGenerator.Repository
                 list.Add(generator.Dob.Date.ToString());
                 list.Add(generator.Gender);
                 list.Add(generator.State);
-
-                
-
-
-
                 doc.Add(list);
                 doc.Close();
 
@@ -154,8 +154,6 @@ namespace PassportGenerator.Repository
             {
                 doc.Close();
             }
-
-
             return true;
         }
 
@@ -177,14 +175,73 @@ namespace PassportGenerator.Repository
             }
         }
 
+        /// <summary>
+        /// To insert passport details into 
+        /// Passport table which is the 
+        /// details of users which passport generated
+        /// </summary>
+        /// <param name="generator"></param>
+        /// <param name="randomString"></param>
+
+        public void InsertIntoGenerator(Generator generator,string randomString)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
+      
+                command = new SqlCommand("INSERT INTO Passport (Status,PassportNumber,RegistrationId) VALUES (@status,@passportnumber,@registrationid)",connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.AddWithValue("@status", "Generated");
+                command.Parameters.AddWithValue("@passportnumber", randomString);
+                command.Parameters.AddWithValue("@registrationid", generator.RegistrationId);
+                connection.Open();
+                int r = command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { connection.Close(); }
 
 
 
+        }
 
 
+        /// <summary>
+        /// To check wheather User passport
+        /// is already generated or not
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool checkPassportGenerated(int id)
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
+                command = new SqlCommand("SELECT PassportNumber FROM Passport WHERE RegistrationId = @id",connection);
+                command.CommandType = CommandType.Text;
+                command.Parameters.AddWithValue("@id", id);
+                connection.Open();
+                object passportNumber = command.ExecuteScalar();
+                if (passportNumber != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
 
-
-
+                throw;
+            }
+            finally { connection.Close(); }
+          
+        }
     }
 
 
@@ -206,9 +263,10 @@ namespace PassportGenerator.Repository
             {
                 buffer[i] = Chars[random.Next(Chars.Length)];
             }
-
             return new string(buffer);
         }
+
+
     }
 }
 
