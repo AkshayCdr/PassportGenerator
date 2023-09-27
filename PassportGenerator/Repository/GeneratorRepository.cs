@@ -78,10 +78,74 @@ namespace PassportGenerator.Repository
         /// </summary>
         /// <param name="generator"></param>
         /// <returns></returns>
+        //public bool GeneratePassport(Generator generator)
+        //{
+
+        //    string randomString = RandomStringGenerator.GenerateRandomString();
+        //    //if already generated return false
+        //    if (checkPassportGenerated(generator.RegistrationId))
+        //    {
+        //        InsertIntoGenerator(generator, randomString);
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+
+        //    var location = "C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay10\\PassportGenerator\\PassportGenerator\\Passport\\";
+        //    var fileName = $"{generator.FirstName}_{generator.LastName}_Passport.pdf"; // PDF file format
+        //    var fileNameImg = $"{generator.FirstName}_{generator.LastName}_Passport.jpg"; // PDF file format
+        //    var filePath = Path.Combine(location, fileName);
+        //    var filePathImg = Path.Combine(location, fileNameImg);
+        //    createImage(generator, filePathImg);
+
+        //    Document doc = null;
+        //    PdfWriter writer = null;
+
+        //    try
+        //    {
+        //        doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
+        //        writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+        //        doc.Open();
+
+        //        //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay5.1\\PassportGenerator\\PassportGenerator\\Imgs\\1.jpg");
+        //        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
+
+        //        img.ScaleToFit(50f, 50f);
+
+        //        doc.Add(img);
+
+        //        List list = new List(List.UNORDERED);
+
+        //        list.IndentationLeft = 35f;
+
+        //        list.Add(randomString);
+        //        list.Add(generator.FirstName);
+        //        list.Add(generator.LastName);
+        //        list.Add(generator.Dob.Date.ToString());
+        //        list.Add(generator.Gender);
+        //        list.Add(generator.State);
+        //        doc.Add(list);
+        //        doc.Close();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    finally
+        //    {
+        //        doc.Close();
+        //    }
+        //    return true;
+        //}
+
+
         public bool GeneratePassport(Generator generator)
         {
-
             string randomString = RandomStringGenerator.GenerateRandomString();
+
             //if already generated return false
             if (checkPassportGenerated(generator.RegistrationId))
             {
@@ -91,7 +155,6 @@ namespace PassportGenerator.Repository
             {
                 return false;
             }
-
 
             var location = "C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay10\\PassportGenerator\\PassportGenerator\\Passport\\";
             var fileName = $"{generator.FirstName}_{generator.LastName}_Passport.pdf"; // PDF file format
@@ -109,53 +172,57 @@ namespace PassportGenerator.Repository
                 writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
                 doc.Open();
 
-                //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay5.1\\PassportGenerator\\PassportGenerator\\Imgs\\1.jpg");
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
+                // Add a border to the page
+                PdfContentByte content = writer.DirectContent;
+                content.SetColorStroke(BaseColor.BLACK);
+                content.Rectangle(10, 10, doc.PageSize.Width - 20, doc.PageSize.Height - 20);
+                content.Stroke();
 
-                img.ScaleToFit(50f, 50f);
-               
+                // Add title
+                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                Paragraph title = new Paragraph("Passport Details", titleFont);
+                title.Alignment = Element.ALIGN_CENTER;
+                doc.Add(title);
+
+                // Add image
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
+                img.ScaleToFit(100f, 100f);
+                img.Alignment = Element.ALIGN_CENTER;
                 doc.Add(img);
 
-                //var passportContent = $"Passport Information:\n" +
-                //                                      $"ID: {generator.Id}\n" +
-                //                                      $"First Name: {generator.FirstName}\n" +
-                //                                      $"Last Name: {generator.LastName}\n" +
-                //                                      $"Date of Birth: {generator.Dob:yyyy-MM-dd}\n" +
-                //                                      $"Age: {generator.Age}\n" +
-                //                                      $"Gender: {generator.Gender}\n" +
-                //                                      $"State: {generator.State}\n" +
-                //                                      $"Status Name: {generator.StatusName}\n" +
-                //                                      $"Registration ID: {generator.RegistrationId}";
-
-                //var paragraph = new Paragraph(passportContent);
-                //doc.Add(paragraph);
-
+                // Add information with styling
+                Font infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
                 
 
-                List list = new List(List.UNORDERED);
-
+                iTextSharp.text.List list = new iTextSharp.text.List(iTextSharp.text.List.UNORDERED);
+                list.SetListSymbol("\u2022"); // Use bullet points
                 list.IndentationLeft = 35f;
 
-                list.Add(randomString);
-                list.Add(generator.FirstName);
-                list.Add(generator.LastName);
-                list.Add(generator.Dob.Date.ToString());
-                list.Add(generator.Gender);
-                list.Add(generator.State);
-                doc.Add(list);
-                doc.Close();
+                list.Add(new iTextSharp.text.ListItem($"{randomString}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"First Name: {generator.FirstName}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"Last Name: {generator.LastName}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"Date of Birth: {generator.Dob.Date}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"Gender: {generator.Gender}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"State: {generator.State}", infoFont));
 
+
+                doc.Add(list);
             }
             catch (Exception ex)
             {
-
+                throw;
             }
             finally
             {
-                doc.Close();
+                if (doc != null)
+                {
+                    doc.Close();
+                }
             }
+
             return true;
         }
+
 
         /// <summary>
         /// Function to create image in 

@@ -22,7 +22,7 @@ namespace PassportGenerator.Controllers
             //only list data to generate if it is approved
             foreach (Generator i in data)
             {
-                if(i.StatusName == "Approved")
+                if(i.StatusName == "Approved" && generatorRepository.checkPassportGenerated(i.RegistrationId))
                 {
                     list.Add(i);
                 }
