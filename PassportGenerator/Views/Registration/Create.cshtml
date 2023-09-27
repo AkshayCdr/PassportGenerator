@@ -1,0 +1,357 @@
+﻿@model PassportGenerator.Models.Registration
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+
+    <style>
+
+
+        body {
+            background-image: url('../../imgs/passportholding.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(20px);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+</head>
+<body>
+
+    @Html.Raw(TempData["InsertErrorMsg"])
+    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="container">
+                <h1 class="text-primary">Sign up</h1>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group row">
+
+                    <label class="col-md-2 col-form-label text-warning">First name </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "firstNameInput" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        <div id="firstNameError" class="text-danger"></div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
+                    <label class="col-md-2 col-form-label text-warning">Last name </label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @id = "LastNameInput" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        <div id="LastNameError" class="text-danger"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label class="col-md-2 col-form-label text-warning">Date of birth </label>
+                    <div class="col-md-10">
+                        @{
+                            var maxDate = DateTime.Today.ToString("yyyy-MM-dd");
+                        }
+                        @Html.TextBoxFor(model => model.Dob, new { @type = "date", @id = "datepicker", @class = "form-control", @max = maxDate })
+                        @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @id = "ageInput" } })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        <label class="form-check-inline text-warning">
+                            @Html.RadioButtonFor(model => model.Gender, "M", new { @class = "form-check-input " }) Male
+                        </label>
+                        <label class="form-check-inline text-warning">
+                            @Html.RadioButtonFor(model => model.Gender, "F", new { @class = "form-check-input " }) Female
+                        </label>
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label class="col-md-2 col-form-label text-warning">Phone number</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @id = "PhoneInput" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        <div id="PhoneError" class="text-danger"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "EmailInput" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <div id="EmailError" class="text-danger"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.State, new SelectList(
+                           new List<SelectListItem>
+                           {
+                               new SelectListItem { Text = "Kerala", Value = "Kerala" },
+                               new SelectListItem { Text = "Karnataka", Value = "Karnataka" },
+                               new SelectListItem { Text = "Tamil Nadu", Value = "Tamil Nadu" },
+                               new SelectListItem { Text = "Andhra", Value = "Andhra" }
+                           }, "Value", "Text"),
+                           new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.City, new SelectList(
+                           new List<SelectListItem>
+                           {
+                               new SelectListItem { Text = "Kochi", Value = "Kochi" },
+                               new SelectListItem { Text = "Bangalore", Value = "Bangalore" },
+                               new SelectListItem { Text = "Chennai", Value = "Chennai" },
+                               new SelectListItem { Text = "Vizag", Value = "Vizag" }
+                           }, "Value", "Text"),
+                           new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @id = "UsernameInput" } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        <div id="UsernameError" class="text-danger"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-md-2 col-form-label text-warning" })
+                    <div class="col-md-10">
+
+                        <input type="password" name="password" value="" id="password" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        <div id="PasswordError" class="text-danger"></div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label text-warning">Confirm Password</label>
+                    <div class="col-md-10">
+                        <input type="password" name="confirmpassword" value="" id="confirmpassword" class="form-control" />
+                        <div id="confirmError" class="text-danger"></div>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "List", "Registration")
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            //First name
+            var firstNameInput = document.getElementById("firstNameInput");
+            var firstNameError = document.getElementById("firstNameError");
+
+            //Last name
+            var LastNameInput = document.getElementById("LastNameInput");
+            var LastNameError = document.getElementById("LastNameError");
+
+            // Date of birth input field
+            var dateOfBirthInput = document.getElementById("datepicker");
+
+            var ageInput = document.getElementById("ageInput");  //age
+
+            // Phone number input field
+            var phoneInput = document.getElementById("PhoneInput");
+            var phoneError = document.getElementById("PhoneError");
+
+            // Email input field
+            var emailInput = document.getElementById("EmailInput");
+            var emailError = document.getElementById("EmailError");
+
+            // Username input field
+            var usernameInput = document.getElementById("UsernameInput");
+            var usernameError = document.getElementById("UsernameError");
+
+            // Password input field
+            var passwordInput = document.getElementById("password");
+            var passwordError = document.getElementById("PasswordError");
+
+            //confirm password input field
+            var confirmInput = document.getElementById("confirmpassword");
+            var confirmError = document.getElementById("confirmError");
+
+
+
+            //  onfocusout event listener for First Name
+            firstNameInput.addEventListener("blur", function () {
+                var firstNameValue = firstNameInput.value.trim();
+                if (firstNameValue === "") {
+                    firstNameError.textContent = "First Name is required!";
+                } else if (/^\d/.test(firstNameValue)) {
+                    firstNameError.textContent = "First Name should not start with a number!";
+                } else {
+                    // Clear the error message
+                    firstNameError.textContent = "";
+                }
+            });
+
+            //  onfocusout event listener for Lastname Name
+            LastNameInput.addEventListener("blur", function () {
+                var LastNameValue = LastNameInput.value.trim();
+                if (LastNameValue === "") {
+                    LastNameError.textContent = "Last name is required";
+                } else if (/^\d/.test(LastNameValue)) {
+                    LastNameError.textContent = "Last Name should not start with a number"
+
+                } else {
+                    LastNameError.textContent = "";
+                }
+            })
+
+
+            dateOfBirthInput.addEventListener("change", calculateAge);
+
+            // Calculate age on page load
+            calculateAge();
+
+            //Function to find age
+
+            function calculateAge() {
+                var dob = new Date(dateOfBirthInput.value);
+                var today = new Date();
+                var age = today.getFullYear() - dob.getFullYear();
+                var monthDiff = today.getMonth() - dob.getMonth();
+
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+
+                ageInput.value = age;
+            }
+
+
+            // Validate phone number
+            phoneInput.addEventListener("blur", function () {
+                var phoneValue = phoneInput.value.trim();
+                if (phoneValue === "") {
+                    phoneError.textContent = "Phone number is required!";
+                } else if (!/^\d{10}$/.test(phoneValue)) {
+                    phoneError.textContent = "Phone number should be 10 digits!";
+                } else {
+                    // Clear the error message
+                    phoneError.textContent = "";
+                }
+            });
+
+            // Validate email
+            emailInput.addEventListener("blur", function () {
+                var emailValue = emailInput.value.trim();
+                if (emailValue === "") {
+                    emailError.textContent = "Email is required!";
+                } else if (!/^\S+@@\S+\.\S+$/.test(emailValue)) {
+                    emailError.textContent = "Invalid email format!";
+                } else {
+                    // Clear the error message
+                    emailError.textContent = "";
+                }
+            });
+
+            //Validate Username
+            usernameInput.addEventListener("blur", function () {
+                var usernameValue = usernameInput.value.trim();
+                if (usernameValue === "") {
+                    usernameError.textContent = "Username is required!";
+                } else if (/^\d/.test(usernameValue)) {
+                    usernameError.textContent = "Username should not start with a number!";
+                } else {
+                    // Clear the error message
+                    usernameError.textContent = "";
+                }
+            });
+
+            // Validate password
+            passwordInput.addEventListener("blur", function () {
+                var passwordValue = passwordInput.value.trim();
+                if (passwordValue === "") {
+                    passwordError.textContent = "Password is required!";
+                } else if (passwordValue.length < 8) {
+                    passwordError.textContent = "Password should be at least 8 characters long!";
+                } else if (!/\d/.test(passwordValue)) {
+                    passwordError.textContent = "Password should contain at least one number!";
+                } else {
+                    // Clear the error message
+                    passwordError.textContent = "";
+                }
+            });
+
+            //validate confirm password
+            confirmInput.addEventListener("blur", function () {
+                var confirmpasswordValue = confirmInput.value.trim();
+                var passwordValue = passwordInput.value.trim();
+                if (confirmpasswordValue === "") {
+                    confirmError.textContent = "confirm password required";
+                } else if (confirmpasswordValue !== passwordValue) {
+                    confirmError.textContent = "Password doesn't match"
+                }
+                else {
+                    confirmError.textContent = "";
+                }
+            })
+
+
+
+
+        });
+    </script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+

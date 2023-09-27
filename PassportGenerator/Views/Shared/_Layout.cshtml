@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Passport Generator</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Roboto+Condensed:wght@300&family=Roboto+Mono:wght@200&display=swap"
+          rel="stylesheet" />
+    <link href="~/Content/css/Layout.css" rel="stylesheet" />
+    <style>
+
+        .logo {
+            display: flex;
+            gap: 20px
+        }
+
+        .passportlogo {
+            padding-top: 10px;
+        }
+
+        .logo h3 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="passportlogo fa-solid fa-passport fa-beat-fade fa-2xl"></i>
+                <h3>PGS</h3>
+            </div>
+            <ul class="nav-links">
+                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Sign in", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Sign up", "Create", "Registration", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("News", "News", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                @{ 
+                    var username = User.Identity.Name.Split('@')[0];
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li style="color: yellow">Hi Welcome @username</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link " })</li>
+                }
+                else
+                {
+
+                }
+            </ul>
+        </nav>
+    </header>
+    @*sidebar User and Admin panel*@
+    @*if User is login*@
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <aside class="sidebar">
+            <ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    //Admin panel
+                    if (User.IsInRole("Admin"))
+                    {
+
+                        <h2 class="panel-name">Admin Panel</h2>
+                        <li>
+                            <a href="@Url.Action("List", "Registration", new { email = User.Identity.Name })">Show all Registered</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("List", "Generator" )">Generate Passport</a>
+                        </li>
+                        <li> @Html.ActionLink("View Roles", "RoleView", "Registration")</li>
+                        <li> @Html.ActionLink("Passport Applications", "List", "Passport")</li>
+                        <li>@Html.ActionLink("Approve", "Details", "Status")</li>
+                    }
+
+                    else
+                    {
+                        //User Panel
+                        <h2 class="panel-name">User Panel</h2>
+                        <li>@Html.ActionLink("New Passport Application", "Create", "Passport")</li>
+                        <li>
+                            <a href="@Url.Action("UserList", "Passport", new { email = User.Identity.Name })">Check applications</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("DetailsofUser", "Status", new { email = User.Identity.Name })">Track</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Details", "Registration", new { email = User.Identity.Name })">Profile</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                }
+            </ul>
+        </aside>
+    }
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+            <div class="address">
+                <p>Kakkanad, Kochi, Kerala 6793209</p>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2023 PGS. All rights reserved.</div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sidebar-toggle").click(function () {
+                $(".sidebar").toggleClass("show");
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+

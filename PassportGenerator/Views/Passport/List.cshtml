@@ -1,0 +1,192 @@
+﻿@using PassportGenerator.Models
+@model IEnumerable<PassportGenerator.Models.Passport>
+
+@{
+    ViewBag.Title = "List";
+}
+
+
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    passport Id
+                </th>
+                <th scope="col">
+                    Birth Proof
+                </th>
+                <th scope="col">
+                    Identity proof
+                </th>
+                <th scope="col">
+                    Nationality
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Passport passport in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        <img alt="" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
+                    </td>
+
+                    <td>
+                        <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" download>
+                            Birth Proof
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" download>
+                            IDentity proof
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>
+                            Nationality
+                        </a>
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "button btn btn-warning btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = passport.Id }, new { @class = "button btn btn-danger btn-sm" })
+
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+
+    </table>
+
+    <li>Click to approve passport</li>
+    <li>@Html.ActionLink("Approve ", "Details", "Status")</li>
+    </ul>
+
+</body>
+</html>*@
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            
+            background-image: url('../../imgs/window.jpg');
+            background-size: cover;
+            background-position: inherit;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(20px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3">Passport List</h1>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Passport ID</th>
+                    <th scope="col">Profile Picture</th>
+                    <th scope="col">Birth Proof</th>
+                    <th scope="col">Identity Proof</th>
+                    <th scope="col">Nationality</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Passport passport in Model)
+                {
+                    <tr>
+                        <td>@passport.Id</td>
+                        <td>
+                            <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
+                        </td>
+                        <td>
+                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" download>Birth Proof</a>
+                        </td>
+                        <td>
+                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" download>Identity Proof</a>
+                        </td>
+                        <td>
+                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>Nationality</a>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Delete", "Delete", new { id = passport.Id }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

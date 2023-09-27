@@ -1,0 +1,197 @@
+﻿@model IEnumerable<PassportGenerator.Models.RegistrationRoles>
+
+@{
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>RoleView</title>
+    </head>
+    <body>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dob)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
+
+        </table>
+    </body>
+    </html>*@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoleView</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            
+            background-image: url('../../imgs/savanahh.jpg');
+            background-size: cover;
+            background-position: inherit;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(5px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">RoleView</h2>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary">Create New</a>
+        </p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.Dob)</th>
+                    <th>@Html.DisplayNameFor(model => model.Age)</th>
+                    <th>@Html.DisplayNameFor(model => model.Gender)</th>
+                    <th>@Html.DisplayNameFor(model => model.Phone)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.State)</th>
+                    <th>@Html.DisplayNameFor(model => model.City)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.Username)</th>
+                    @*<th>@Html.DisplayNameFor(model => model.Password)</th>*@
+                    <th>@Html.DisplayNameFor(model => model.Role)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.Dob)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Phone)</td>*@
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.State)</td>
+                        <td>@Html.DisplayFor(modelItem => item.City)</td>*@
+                        <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.Password)</td>*@
+                        <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                        <td>
+                            @*<a href="@Url.Action("Edit", new { id=item.Id })" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="@Url.Action("Details","Registration", new { id=item.Id })" class="btn btn-info btn-sm">Details</a>
+                            <a href="@Url.Action("Delete", new { id=item.Id })" class="btn btn-danger btn-sm">Delete</a>*@
+                            @Html.ActionLink("Add Admin", "AddRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
+                            @Html.ActionLink("Remove Admin", "RemoveRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

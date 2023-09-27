@@ -1,0 +1,181 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <link href="~/Content/css/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background-image: url('../../imgs/passport.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(5px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+</head>
+<body>
+   
+
+    @if (TempData["LoginMessage"] != null)
+    {       
+        <script>
+            alert("@TempData["LoginMessage"]");
+        </script>
+    }
+    <div class="login">
+        <div class="heading">
+            <h1>Sign in</h1>
+        </div>
+        <div class="content">
+            <form class="form" id="form">
+                <div class="input-control">
+                    <input type="email"
+                           name="Email Address"
+                           placeholder="Email"
+                           class="email"
+                           id="email" />
+                    <div class="error"></div>
+                </div>
+
+                <div class="input-control">
+                    <input type="password"
+                           name="Password"
+                           placeholder="Password"
+                           class="password"
+                           id="password" />
+                    <div class="error"></div>
+                </div>
+
+                <div class="rememeber">
+                    <label class="checklabel">
+                        <input type="checkbox" class="checkbox" />
+                        Remember me
+                    </label>
+                    <a href="#" class="forget-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="button" id="button">Sign in</button>
+                <p>Not a member ? <a href="Registration/Create">sign up now</a></p>
+            </form>
+        </div>
+    </div>
+
+    @*<script src="~/Scripts/Js/Login.js"></script>*@
+    <script>
+        const form = document.getElementById("form");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            if (validateInputs()) {
+                // Validation succeeded, send the data
+                sendData();
+            }
+        });
+
+        const sendData = () => {
+            const emailValue = email.value.trim();
+            const passwordValue = password.value.trim();
+
+            //  data object  to send
+            const obj = {
+                Email: emailValue,
+                Password: passwordValue,
+            };
+
+            $.ajax({
+                url: "/Login/Index",
+                method: "POST",
+                data: obj,
+                success: function (data) {
+                    console.log(data);
+
+                    window.location.reload(); // Reload the page after successful login
+                },
+                error: function (err) {
+                    console.log(err);
+                    console.log("Failed");
+                },
+            });
+        };
+
+        const setError = (element, message) => {
+            const inputControl = element.parentElement;
+            const errorDisplay = inputControl.querySelector(".error");
+
+            errorDisplay.innerText = message;
+            inputControl.classList.add("error");
+            inputControl.classList.remove("success");
+        };
+
+        const setSuccess = (element) => {
+            const inputControl = element.parentElement;
+            const errorDisplay = inputControl.querySelector(".error");
+
+            errorDisplay.innerText = "";
+            inputControl.classList.add("success");
+            inputControl.classList.remove("error");
+        };
+
+        const isValidEmail = (email) => {
+            const re =
+                /^(([^<>()[\]\\.,;:\s@@"]+(\.[^<>()[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        };
+
+        const validateInputs = () => {
+            const emailValue = email.value.trim();
+            const passwordValue = password.value.trim();
+
+            if (emailValue === "") {
+                setError(email, "Email is required");
+                return false; // Validation failed
+            } else if (!isValidEmail(emailValue)) {
+                setError(email, "Provide a valid email address");
+                return false; // Validation failed
+            } else {
+                setSuccess(email);
+            }
+
+            if (passwordValue === "") {
+                setError(password, "Password is required");
+                return false; // Validation failed
+            } else if (passwordValue.length < 8) {
+                setError(password, "Password must be at least 8 characters.");
+                return false; // Validation failed
+            } else {
+                setSuccess(password);
+            }
+
+            return true; // Validation succeeded
+        };
+
+
+
+
+    </script>
+
+</body>
+</html>

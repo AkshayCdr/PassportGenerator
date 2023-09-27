@@ -1,0 +1,114 @@
+﻿@model IEnumerable<PassportGenerator.Models.Generator>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            
+            background-image: url('../../imgs/clouds.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(25px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+</head>
+<body >
+    <h2>List</h2>
+    <p>
+        @*@Html.ActionLink("Create New", "Create")*@
+    </p>
+    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded ">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Photo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dob)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Age)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StatusName)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img alt="" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" style="height:100px;width:100px;" />
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Dob)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Age)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StatusName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Generate Passport", "GeneratePassport", new { id = item.RegistrationId }, new { @class = "btn btn-primary" })
+                                <!-- Add your other action links here -->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

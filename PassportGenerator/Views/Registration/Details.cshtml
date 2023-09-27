@@ -1,0 +1,211 @@
+﻿
+@model PassportGenerator.Models.Registration
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+
+
+@*<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+        <h1>Profile</h1>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dob)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>*@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Details</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+ 
+    <style>
+
+        .center-button {
+            text-align: center;
+        }
+
+        body {
+            
+            background-image: url('../../imgs/window.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(2px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    </style>
+
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header heading">Profile Details  </div>
+                   
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <th width="30%">First Name:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.FirstName)</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.LastName)</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Dob)</td>
+                            </tr>
+                            <tr>
+                                <th>Age:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Age)</td>
+                            </tr>
+                            <tr>
+                                <th>Gender:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Gender)</td>
+                            </tr>
+                            <tr>
+                                <th>Phone:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Phone)</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Email)</td>
+                            </tr>
+                            <tr>
+                                <th>State:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.State)</td>
+                            </tr>
+                            <tr>
+                                <th>City:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.City)</td>
+                            </tr>
+                            <tr>
+                                <th>Username:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Username)</td>
+                            </tr>
+                            <tr>
+                                <th>Password:</th>
+                                <td>@Html.DisplayFor(modelItem => modelItem.Password)</td>
+                            </tr>
+                        </table>
+                        @*<div>
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+                        </div>*@
+
+
+                        <div class="card-footer center-button">
+                            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning edit-button" })
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

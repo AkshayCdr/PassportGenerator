@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="~/Content/css/aboutus.css" rel="stylesheet" />
+    <style>
+        body {
+           
+            background-image: url('../../imgs/passportandmap.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(15px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            p{
+                /*color:white;*/
+            }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="company-info">
+            <h2>Welcome to PassportPro - Your Trusted Passport Application Partner!</h2>
+            <p>
+                At PassportPro, we understand the significance of a passport in today's globalized world. 
+                Whether you're planning an exotic vacation, pursuing higher education abroad, 
+                or expanding your business internationally, having a reliable passport is 
+                the first step towards fulfilling your dreams. We are here to make that journey smoother, 
+                more efficient, and hassle-free.
+            </p>
+            <p>
+                Our mission at PassportPro is simple yet profound: To empower individuals and families to 
+                explore the world, connect with loved ones across borders, and pursue their aspirations
+                by simplifying the passport application process. We believe that obtaining a passport 
+                should be a straightforward and stress-free experience, and we are committed to making it possible for everyone.
+            </p>
+        </section>
+        <section class="ceo-info">
+            <div class="ceo-photo">
+                <img src="~/Imgs/Salil-Parekh.jpeg"
+                     alt="CEO Photo" />
+
+            </div>
+            <div class="ceo-note">
+                <h3>Message from our CEO</h3>
+                <p>
+                    "Our team of passport specialists has years of experience in the field. 
+                    We are well-versed in the intricacies of passport application procedures,
+                    ensuring that your application is handled with the utmost professionalism."
+                </p>
+            </div>
+        </section>
+        <section class="visit-us">
+            <h3>Visit Us</h3>
+            <p>Passport Seva, Thrippunithura</p>
+            <p>Kerala, India</p>
+        </section>
+
+        <div class="google-map">
+            @*<iframe src="[your unique google URL] " width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>*@
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.7833420720303!2d76.3561669749212!3d9.951976190150956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b087360d81da69b%3A0x68c8d29d703837f6!2sPassport%20Seva%20Kendra%20Thrippunithura%20Kochi!5e0!3m2!1sen!2sin!4v1695110416888!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="~/Content/css/index.css" rel="stylesheet" />
+   
+</head>
+<body>
+
+    <div class="main">
+        <div class="img-slider">
+            <div class="slide active">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Indian_Passport.svg"
+                     alt=""
+                     height="300px"
+                     width="300px" />
+                <div class="info">
+                    <h2>Ordinary Passport</h2>
+                    <p>
+                       
+                    </p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Indian_Official_Passport.svg"
+                     alt=""
+                     height="300px"
+                     width="300px" />
+                <div class="info">
+                    <h2>Offical Passport</h2>
+                    <p>
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Indian_Diplomatic_Passport.svg"
+                     alt=""
+                     height="300px"
+                     width="300px" />
+                <div class="info">
+                    <h2>Diplomatic Passport</h2>
+                    <p>
+                    </p>
+                </div>
+            </div>
+            @*<div class="slide">
+                <img src="imgs\photo-1605101232508-283d0cd4909e.avif"
+                     alt=""
+                     height="300px"
+                     width="300px" />
+                <div class="info">
+                    <h2>Rolex</h2>
+                    <p>
+                        The first Rolex Day-Date was introduced in 1956, with references
+                        6510 (domed bezel) and 6511 (fluted bezel).
+                    </p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="imgs\photo-1605544906466-6d3268a268bd.avif"
+                     alt=""
+                     height="300px"
+                     width="300px" />
+                <div class="info">
+                    <h2>Omega</h2>
+                    <p>
+                        The Omega Speedmaster Professional Chronograph was the first watch
+                        on the Moon, worn by Buzz Aldrin. First worn by Mercury astronaut
+                        Wally Schirra in 1962, the "Omega Speedmaster Professional
+                        Chronograph" was chosen by NASA to become the only chronograph
+                        certified for use on all missions since 1965
+                    </p>
+                </div>
+            </div>*@
+            <div class="navigation">
+                <div class="btn active"></div>
+                <div class="btn"></div>
+                <div class="btn"></div>
+                @*<div class="btn"></div>
+                <div class="btn"></div>*@
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Js/Index.js"></script>
+
+    @*<script type="text/javascript">
+        var slides = document.querySelectorAll(".slide");
+        var btns = document.querySelectorAll(".btn");
+        let currentSlide = 1;
+
+        var manualNav = function (manual) {
+            slides.forEach((slide) => {
+                slide.classList.remove("active");
+
+                btns.forEach((btn) => {
+                    btn.classList.remove("active");
+                });
+            });
+
+            slides[manual].classList.add("active");
+            btns[manual].classList.add("active");
+        };
+
+        btns.forEach((btn, i) => {
+            btn.addEventListener("click", () => {
+                manualNav(i);
+                currentSlide = i;
+            });
+        });
+
+        var repeat = function (activeClass) {
+            let active = document.getElementsByClassName("active");
+            let i = 1;
+
+            var repeater = () => {
+                setTimeout(function () {
+                    [...active].forEach((activeSlide) => {
+                        activeSlide.classList.remove("active");
+                    });
+
+                    slides[i].classList.add("active");
+                    btns[i].classList.add("active");
+                    i++;
+
+                    if (slides.length == i) {
+                        i = 0;
+                    }
+                    if (i >= slides.length) {
+                        return;
+                    }
+                    repeater();
+                }, 10000);
+            };
+            repeater();
+        };
+        repeat();
+    </script>*@
+</body>
+</html>

@@ -1,0 +1,145 @@
+﻿@*@model PassportGenerator.Models.Generator
+
+    @{
+        ViewBag.Title = "GeneratePassport";
+    }
+
+    <h2>GeneratePassport</h2>
+
+    <div>
+        <h4>Passport</h4>
+        <hr />
+        <ul class="">
+            <dd>
+                @Html.DisplayFor(model => model.Photo)
+
+            </dd>
+
+            <li>
+                <img alt="" src="data:image/png;base64,@Convert.ToBase64String(Model.PhotoBytes)" style="height:100px;width:100px;" />
+            </li>
+
+
+            <li>
+                @Html.DisplayFor(model => model.FirstName)
+            </li>
+
+            <li>
+                @Html.DisplayFor(model => model.LastName)
+            </li>
+
+            <li>
+                @Html.DisplayFor(model => model.State)
+            </li>
+
+            <li>
+                @Html.DisplayFor(model => model.Age)
+            </li>
+
+
+
+
+        </ul>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+
+
+@model PassportGenerator.Models.Generator
+
+@{
+    ViewBag.Title = "GeneratePassport";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* Custom CSS for Passport Styling */
+        body {
+            
+            background-image: url('../../imgs/savanahh.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                background: inherit;
+                filter: blur(5px); /* Adjust the blur radius as needed */
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+            .image-details{
+                display:flex;
+            }
+
+        .passport-container {
+            max-width: 400px;
+            /*display:flex;*/
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .passport-photo {
+            /*display: block;*/
+            margin: 0 auto;
+            border: 2px solid #fff;
+            /*border-radius: 50%;*/
+        }
+
+        .passport-details {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .passport-details li {
+                margin-bottom: 10px;
+            }
+
+            .image-details li{
+                text-decoration:overline;
+            }
+    </style>
+</head>
+<body>
+    <div class="container passport-container shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <h2 class="text-center">Republic of India</h2>
+        <hr />
+        <div class="image-details">
+            <img class="passport-photo" alt="" src="data:image/png;base64,@Convert.ToBase64String(Model.PhotoBytes)" style="height:150px;width:150px;" />
+            <ul class="passport-details">
+                <li><strong>First Name:</strong> @Html.DisplayFor(model => model.FirstName, new { @class = "details" })</li>
+                <li><strong>Last Name:</strong> @Html.DisplayFor(model => model.LastName)</li>
+                <li><strong>State:</strong> @Html.DisplayFor(model => model.State)</li>
+                <li><strong>Age:</strong> @Html.DisplayFor(model => model.Age)</li>
+            </ul>
+        </div>
+    </div>
+    @*<p class="text-center">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add Bootstrap JS and jQuery scripts if needed -->
+</body>
+</html>
+
