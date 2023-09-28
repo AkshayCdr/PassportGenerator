@@ -142,6 +142,87 @@ namespace PassportGenerator.Repository
         //}
 
 
+        //public bool GeneratePassport(Generator generator)
+        //{
+        //    string randomString = RandomStringGenerator.GenerateRandomString();
+
+        //    //if already generated return false
+        //    if (checkPassportGenerated(generator.RegistrationId))
+        //    {
+        //        InsertIntoGenerator(generator, randomString);
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+
+        //    var location = "C:\\Users\\Akshay\\Desktop\\Claysys\\ProjectNoTempDay10\\PassportGenerator\\PassportGenerator\\Passport\\";
+        //    var fileName = $"{generator.FirstName}_{generator.LastName}_Passport.pdf"; // PDF file format
+        //    var fileNameImg = $"{generator.FirstName}_{generator.LastName}_Passport.jpg"; // PDF file format
+        //    var filePath = Path.Combine(location, fileName);
+        //    var filePathImg = Path.Combine(location, fileNameImg);
+        //    createImage(generator, filePathImg);
+
+        //    Document doc = null;
+        //    PdfWriter writer = null;
+
+        //    try
+        //    {
+        //        doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
+        //        writer = PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+        //        doc.Open();
+
+        //        // Add a border to the page
+        //        PdfContentByte content = writer.DirectContent;
+        //        content.SetColorStroke(BaseColor.BLACK);
+        //        content.Rectangle(10, 10, doc.PageSize.Width - 20, doc.PageSize.Height - 20);
+        //        content.Stroke();
+
+        //        // Add title
+        //        Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+        //        Paragraph title = new Paragraph("Passport Details", titleFont);
+        //        title.Alignment = Element.ALIGN_CENTER;
+        //        doc.Add(title);
+
+        //        // Add image
+        //        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
+        //        img.ScaleToFit(100f, 100f);
+        //        img.Alignment = Element.ALIGN_CENTER;
+        //        doc.Add(img);
+
+        //        // Add information with styling
+        //        Font infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+
+
+        //        iTextSharp.text.List list = new iTextSharp.text.List(iTextSharp.text.List.UNORDERED);
+        //        list.SetListSymbol("\u2022"); // Use bullet points
+        //        list.IndentationLeft = 35f;
+
+        //        list.Add(new iTextSharp.text.ListItem($"{randomString}", infoFont));
+        //        list.Add(new iTextSharp.text.ListItem($"First Name: {generator.FirstName}", infoFont));
+        //        list.Add(new iTextSharp.text.ListItem($"Last Name: {generator.LastName}", infoFont));
+        //        list.Add(new iTextSharp.text.ListItem($"Date of Birth: {generator.Dob.Date}", infoFont));
+        //        list.Add(new iTextSharp.text.ListItem($"Gender: {generator.Gender}", infoFont));
+        //        list.Add(new iTextSharp.text.ListItem($"State: {generator.State}", infoFont));
+
+
+        //        doc.Add(list);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        if (doc != null)
+        //        {
+        //            doc.Close();
+        //        }
+        //    }
+
+        //    return true;
+        //}
+
         public bool GeneratePassport(Generator generator)
         {
             string randomString = RandomStringGenerator.GenerateRandomString();
@@ -179,10 +260,18 @@ namespace PassportGenerator.Repository
                 content.Stroke();
 
                 // Add title
-                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+                Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24); // Increased font size
                 Paragraph title = new Paragraph("Passport Details", titleFont);
                 title.Alignment = Element.ALIGN_CENTER;
                 doc.Add(title);
+
+                // Add information with styling
+                Font infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 16); // Increased font size
+
+                // Add random string at the top
+                Paragraph randomStringParagraph = new Paragraph(randomString, infoFont);
+                randomStringParagraph.Alignment = Element.ALIGN_CENTER;
+                doc.Add(randomStringParagraph);
 
                 // Add image
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(filePathImg);
@@ -190,21 +279,16 @@ namespace PassportGenerator.Repository
                 img.Alignment = Element.ALIGN_CENTER;
                 doc.Add(img);
 
-                // Add information with styling
-                Font infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
-                
-
+                // Add other information
                 iTextSharp.text.List list = new iTextSharp.text.List(iTextSharp.text.List.UNORDERED);
                 list.SetListSymbol("\u2022"); // Use bullet points
                 list.IndentationLeft = 35f;
 
-                list.Add(new iTextSharp.text.ListItem($"{randomString}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"First Name: {generator.FirstName}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Last Name: {generator.LastName}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Date of Birth: {generator.Dob.Date}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Gender: {generator.Gender}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"State: {generator.State}", infoFont));
-
 
                 doc.Add(list);
             }
@@ -222,6 +306,7 @@ namespace PassportGenerator.Repository
 
             return true;
         }
+
 
 
         /// <summary>
