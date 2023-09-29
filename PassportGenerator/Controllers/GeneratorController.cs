@@ -44,6 +44,7 @@ namespace PassportGenerator.Controllers
             {
                 if (generatorRepository.GeneratePassport(data))
                 {
+                    TempData["GeneratorSuccess"] = "<script>alert(Passport Generated success)</script>";
                     return View(list);
                 }
                 else

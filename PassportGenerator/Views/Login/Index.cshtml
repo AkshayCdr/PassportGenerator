@@ -32,13 +32,16 @@
     </style>
 </head>
 <body>
-   
+
     @if (TempData["LoginMessage"] != null)
-    {       
+    {
         <script>
             alert("@TempData["LoginMessage"]");
         </script>
     }
+
+    @TempData["InsertMsg"];
+    @TempData["InsertErrorMsg"];
     <div class="login">
         <div class="heading">
             <h1>Sign in</h1>
@@ -148,20 +151,20 @@
 
             if (emailValue === "") {
                 setError(email, "Email is required");
-                return false; 
+                return false;
             } else if (!isValidEmail(emailValue)) {
                 setError(email, "Provide a valid email address");
-                return false; 
+                return false;
             } else {
                 setSuccess(email);
             }
 
             if (passwordValue === "") {
                 setError(password, "Password is required");
-                return false; 
+                return false;
             } else if (passwordValue.length < 8) {
                 setError(password, "Password must be at least 8 characters.");
-                return false; 
+                return false;
             } else {
                 setSuccess(password);
             }

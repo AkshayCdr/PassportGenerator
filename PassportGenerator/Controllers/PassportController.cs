@@ -73,7 +73,7 @@ namespace PassportGenerator.Controllers
                         if (passportRepository.InsertUsers(passport))
                         {
                             ViewBag.Message = "User successfully saved";
-                            TempData["PassportMessage"] = "Passport Data saved";
+                            TempData["PassportMessage"] = "<script>alert('Passport Data saved.')</script>";
                             return RedirectToAction("UserList", new { email = passport.Email });
                         }
                     }
@@ -120,10 +120,12 @@ namespace PassportGenerator.Controllers
             {
                 if (passportRepository.UpdateUser(passport))
                 {
+                    TempData["PassportEdit"] = "<script>alert('Passport Data Edited Succesfully.')</script>";
                     return RedirectToAction("UserList", new { email = passport.Email });
                 }
                 else
                 {
+                    TempData["PassportEditFail"] = "<script>alert('Passport Data Update failed.')</script>";
                     return RedirectToAction("UserList", new { email = passport.Email });
                 }
             }
@@ -141,10 +143,12 @@ namespace PassportGenerator.Controllers
             string email = User.Identity.Name;
             if (passportRepository.DeleteUser(id,email))
             {
+                TempData["PassportDelete"] = "<script>alert('Passport Data Deleted Succesfully.')</script>";
                 return RedirectToAction("UserList",new { email = User.Identity.Name});
             }
             else
             {
+                TempData["PassportDeleteError"] = "<script>alert('Passport Data Deletion Error.')</script>";
                 return RedirectToAction("UserList", new {email = User.Identity.Name});
             }
         }

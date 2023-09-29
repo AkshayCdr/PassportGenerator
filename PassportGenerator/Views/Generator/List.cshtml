@@ -9,7 +9,6 @@
     <title></title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
         body {
             
             background-image: url('../../imgs/clouds.jpg');
@@ -18,24 +17,22 @@
             position: relative;
         }
 
-            body::before {
-                content: "";
-                background: inherit;
-                filter: blur(25px); 
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: -1;
-            }
+        body::before {
+             content: "";
+             background: inherit;
+             filter: blur(25px); 
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             z-index: -1;
+         }
     </style>
 </head>
 <body >
     <h2>List</h2>
-    <p>
-        @*@Html.ActionLink("Create New", "Create")*@
-    </p>
+    @TempData["GeneratorSuccess"];
     <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded ">
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover">

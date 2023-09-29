@@ -38,6 +38,7 @@
 <body>
     <div>
         @ViewBag.Message
+        @TempData["PassportMessage"];
     </div>
     <div class="container mt-5">
         @using (Html.BeginForm("Create", "Passport", FormMethod.Post, new { enctype = "multipart/form-data" }))

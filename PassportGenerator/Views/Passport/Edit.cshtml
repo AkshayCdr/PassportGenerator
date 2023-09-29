@@ -37,9 +37,11 @@
     </style>
 </head>
 <body>
-    <div>
+   
         @ViewBag.Message
-    </div>
+        @TempData["PassportEdit"];
+        @TempData["PassportEditFail"];
+    
     <div class="container mt-5">
         @using (Html.BeginForm("Edit", "Passport", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
