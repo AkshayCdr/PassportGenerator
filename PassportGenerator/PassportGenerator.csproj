@@ -143,6 +143,7 @@
     <Compile Include="Models\RegistrationRoles.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Validations\Password_AtleastOneNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GeneratorRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />

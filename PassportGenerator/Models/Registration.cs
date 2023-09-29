@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PassportGenerator.Models.Validations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -50,8 +51,9 @@ namespace PassportGenerator.Models
         [StringLength(50, ErrorMessage = "Username cannot be longer than 50 characters")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")]
+        //[Required(ErrorMessage = "Password is required")]
+        //[StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")]
+        [Password_AtleastOneNumber]
         public string Password { get; set; }
     }
 
