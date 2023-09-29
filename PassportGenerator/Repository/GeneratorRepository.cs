@@ -133,20 +133,18 @@ namespace PassportGenerator.Repository
                 doc.Add(img);
 
                 // Add information with styling
-                infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                Font infoFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
                 
 
                 iTextSharp.text.List list = new iTextSharp.text.List(iTextSharp.text.List.UNORDERED);
                 list.SetListSymbol("\u2022"); 
                 list.IndentationLeft = 35f;
 
-                list.Add(new iTextSharp.text.ListItem($"{randomString}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"First Name: {generator.FirstName}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Last Name: {generator.LastName}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Date of Birth: {generator.Dob.Date}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Gender: {generator.Gender}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"State: {generator.State}", infoFont));
-
 
                 doc.Add(list);
             }
@@ -164,6 +162,7 @@ namespace PassportGenerator.Repository
 
             return true;
         }
+
 
 
         /// <summary>

@@ -138,13 +138,14 @@ namespace PassportGenerator.Controllers
         /// <returns></returns>
         public ActionResult Delete(int id)
         {
-            if (passportRepository.DeleteUser(id))
+            string email = User.Identity.Name;
+            if (passportRepository.DeleteUser(id,email))
             {
-                return RedirectToAction("List");
+                return RedirectToAction("UserList",new { email = User.Identity.Name});
             }
             else
             {
-                return RedirectToAction("List");
+                return RedirectToAction("UserList", new {email = User.Identity.Name});
             }
         }
     }

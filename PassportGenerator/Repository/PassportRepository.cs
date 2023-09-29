@@ -262,13 +262,14 @@ namespace PassportGenerator.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool DeleteUser(int id)
+        public bool DeleteUser(int id,string email)
         {
             try
             {
+                int registrationId = getRegistrationId(email);
                 command = new SqlCommand("SPD_Status", connectionLink);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@id", registrationId);
                 connectionLink.Open();
                 command.ExecuteNonQuery();
                 connectionLink.Close();
