@@ -137,7 +137,11 @@ namespace PassportGenerator.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// To show profile of the user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public ActionResult Details(string email)
         {
             int id = registrationRepository.findRegistrationId(email);
