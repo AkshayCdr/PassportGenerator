@@ -54,5 +54,20 @@ namespace PassportGenerator.Controllers
             }
             return View(list);
         }
+
+        /// <summary>
+        /// Showing the list of generated passport
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ListOfGeneratedPassport() 
+        {
+            //Get list of generated passport 
+            var data = generatorRepository.GeneratedPassportList();
+            //return view 
+            return View(data);
+        }
+
+        
     }
 }

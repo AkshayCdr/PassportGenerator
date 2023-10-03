@@ -252,6 +252,44 @@ namespace PassportGenerator.Repository
             finally { connection.Close(); }
           
         }
+
+        /// <summary>
+        /// To get the list of the People 
+        /// whos pasport has been generated
+        /// </summary>
+        /// <returns></returns>
+        public List<PassportGeneratedList> GeneratedPassportList()
+        {
+            try
+            {
+                command = new SqlCommand("SELECT Photo,FirstName,LastName,Email,PassportNumber,PassportOfficeName FROM Registrations as r  JOIN Passport_Data as pd on r.id = pd.RegistrationId join Passport as p on r.id = p.RegistrationId;", connection);
+                command.CommandType = CommandType.Text;
+                adapter = new SqlDataAdapter(command);
+                table = new DataTable();
+                adapter.Fill(table);
+                List<PassportGeneratedList> list = new List<PassportGeneratedList>();
+                foreach (DataRow table in table.Rows)
+                {
+                    list.Add(new PassportGeneratedList
+                    {
+                        PhotoBytes = (byte[])table["Photo"],
+                        FirstName = table["FirstName"].ToString(),
+                        LastName = table["LastName"].ToString(),
+                        Email = table["Email"].ToString(),
+                        PassportNumber = table["PassportNumber"].ToString(),
+                        PassportOfficeName = table["PassportOfficeName"].ToString()
+                    });
+                }
+
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { connection.Close(); }
+        }
     }
 
 

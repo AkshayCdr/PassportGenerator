@@ -139,6 +139,7 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Models\Passport.cs" />
+    <Compile Include="Models\PassportGeneratedList.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\RegistrationRoles.cs" />
     <Compile Include="Models\Status.cs" />
@@ -253,6 +254,7 @@
     <Content Include="Views\Registration\Details.cshtml" />
     <Content Include="Views\Home\Passport.cshtml" />
     <Content Include="Views\Login\ForgetPassword.cshtml" />
+    <Content Include="Views\Generator\ListOfGeneratedPassport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<PassportGenerator.Models.PassportGeneratedList>
+
+@{
+    ViewBag.Title = "ListOfGeneratedPassport";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-image: url('../../imgs/pexels-pixabay-52500.jpg');
+        /*background-image: url('../../imgs/passportholding.jpg');*/
+        background-size: cover;
+        background-position: inherit;
+        position: relative;
+    }
+
+        body::before {
+            content: "";
+            background: inherit;
+            filter: blur(5px); 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+    .table {
+        /*background-color: rgba(255, 255, 255, 0.9);*/
+        opacity:.8;
+        border-radius: 15px; 
+    }
+</style>
+<body>
+    <h2>All Generated Passports</h2>
+    <div class="table-responsive">
+        <table class="table  table-dark table-hover table-borderless ">
+            <thead class="">
+                <tr>
+                    <th>
+                        Photo
+                    </th>
+                    <th>
+                        First name
+                    </th>
+                    <th>
+                        Last name
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        Passport number
+                    </th>
+                    <th>
+                        Location
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" style="height:100px;width:100px;" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.PassportNumber)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.PassportOfficeName)
+                        </td>
+                      
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
