@@ -92,6 +92,9 @@
                     {
                         //User Panel
                         <h2 class="panel-name">User Panel</h2>
+                        <li>
+                            <a href="@Url.Action("UserGeneratedPassportList", "Generator", new { email = User.Identity.Name })">Passport</a>
+                        </li>
                         <li>@Html.ActionLink("New Passport Application", "Create", "Passport")</li>
                         <li>
                             <a href="@Url.Action("UserList", "Passport", new { email = User.Identity.Name })">Check applications</a>
@@ -102,6 +105,7 @@
                         <li>
                             <a href="@Url.Action("Details", "Registration", new { email = User.Identity.Name })">Profile</a>
                         </li>
+
                     }
                 }
                 else

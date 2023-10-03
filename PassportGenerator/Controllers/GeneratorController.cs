@@ -68,6 +68,20 @@ namespace PassportGenerator.Controllers
             return View(data);
         }
 
-        
+        /// <summary>
+        /// User to view the details of the 
+        /// generated passport and to know
+        /// wheather passport generated or not 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UserGeneratedPassportList(string email)
+        {
+            var data = generatorRepository.GeneratedPassportListUser(email);
+
+            //check passport generated ot not 
+            // if not show it on the view as Passport not Generated
+            //if generated show the details of perticular user
+            return View(data);
+        }
     }
 }

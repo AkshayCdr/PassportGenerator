@@ -1,0 +1,82 @@
+﻿
+@model IEnumerable<PassportGenerator.Models.PassportGeneratedList>
+
+@{
+    ViewBag.Title = "UserGeneratedPassportList";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+        }
+        .container {
+            padding: 40px 40px;
+            display: flex;
+            flex-direction: column; /* Change the flex direction to column */
+            align-items: center; /* Center the content horizontally */
+            text-align: center; /* Center the text within the container */
+        }
+        .profile-card {
+            width: 500px; /* Adjust the card width as needed */
+            height: 400px;
+            margin-bottom: 20px;
+            padding: 20px 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            gap: 10px;
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            color:white;
+        }
+
+        .profile-image {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10%;
+            margin-bottom: 10px;
+            padding:5px 5px;
+        }
+        .profile-card p{
+            text-decoration:overline;
+            line-height:40px;
+        }
+        h1{
+            padding:5px 10px;
+
+        }
+
+        .header{
+            display:flex;
+            justify-content:center
+        }
+
+    </style>
+</head>
+<body>
+        <div class="container">
+            @*<h2>Passport</h2>*@
+            @foreach (var item in Model)
+            {
+                <div class="profile-card">
+                    <div class="header">
+                        <h1>INDIAN PASSPORT</h1>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Alternate Text" height="40px" width="40px" />
+                    </div>
+                    <h2>@Html.DisplayFor(modelItem => item.PassportNumber)</h2>
+                    <img class="rounded-circle profile-image img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" />
+                    <h3>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h3>
+                    <p><strong>Email:</strong> @Html.DisplayFor(modelItem => item.Email)</p>
+                    @*<p><strong>Passport Number:</strong> @Html.DisplayFor(modelItem => item.PassportNumber)</p>*@
+                    <p><strong>Location:</strong> @Html.DisplayFor(modelItem => item.PassportOfficeName)</p>
+
+                </div>
+            }
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
