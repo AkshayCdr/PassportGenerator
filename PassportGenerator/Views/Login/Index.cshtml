@@ -39,6 +39,13 @@
             alert("@TempData["LoginMessage"]");
         </script>
     }
+    @if (TempData["ChangePassSucc"] != null)
+            {
+                <script>
+                    alert('@TempData["ChangePassSucc"]')
+                </script>
+            }
+    @TempData["ChangePassSucc"];
 
     @TempData["InsertMsg"];
     @TempData["InsertErrorMsg"];
@@ -71,7 +78,7 @@
                         <input type="checkbox" class="checkbox" />
                         Remember me
                     </label>
-                    <a href="#" class="forget-password">Forgot password?</a>
+                    <a href="/Login/ForgetPassword" class="forget-password">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="button" id="button">Sign in</button>

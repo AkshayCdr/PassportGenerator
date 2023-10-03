@@ -251,6 +251,8 @@
     <Content Include="Views\Status\DetailsofUser.cshtml" />
     <Content Include="Views\Passport\UserList.cshtml" />
     <Content Include="Views\Registration\Details.cshtml" />
+    <Content Include="Views\Home\Passport.cshtml" />
+    <Content Include="Views\Login\ForgetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

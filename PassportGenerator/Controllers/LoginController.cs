@@ -68,5 +68,42 @@ namespace PassportGenerator.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgetPassword(Registration registration)
+        {
+            //if (ModelState.IsValid)
+            //{
+                var data = loginRepository.GetUsers();
+                foreach (var user in data)
+                {
+                    if (user.Email == registration.Email)
+                    {
+                        if (loginRepository.ChangePassword(registration))
+                        {
+                            TempData["ChangePassSucc"] = "Password Changed successfully";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            TempData["ChangePassError"] = "Password Change failed";
+                            return View();
+                        }
+                    } 
+                }
+                TempData["PasswordChangeUserNotExist"] = "User not registered";
+                return View();
+
+            //}
+
+            //return View();
+
+
+        }
+
     }
 }

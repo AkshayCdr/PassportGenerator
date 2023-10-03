@@ -206,6 +206,6 @@ namespace PassportGenerator.Controllers
         {
             var data = registrationRepository.GetUsersAndRoles();
             return View(data);
-        }   
+        }  
     }
 }
