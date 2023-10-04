@@ -199,8 +199,8 @@ namespace PassportGenerator.Repository
             {
                 SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
       
-                command = new SqlCommand("INSERT INTO Passport (Status,PassportNumber,RegistrationId) VALUES (@status,@passportnumber,@registrationid)",connection);
-                command.CommandType = CommandType.Text;
+                command = new SqlCommand("SPI_GeneratorPassport", connection);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@status", "Generated");
                 command.Parameters.AddWithValue("@passportnumber", randomString);
                 command.Parameters.AddWithValue("@registrationid", generator.RegistrationId);
@@ -230,8 +230,8 @@ namespace PassportGenerator.Repository
             try
             {
                 SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
-                command = new SqlCommand("SELECT PassportNumber FROM Passport WHERE RegistrationId = @id",connection);
-                command.CommandType = CommandType.Text;
+                command = new SqlCommand("SPS_GeneratorPassportWithId", connection);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", id);
                 connection.Open();
                 object passportNumber = command.ExecuteScalar();
@@ -262,8 +262,8 @@ namespace PassportGenerator.Repository
         {
             try
             {
-                command = new SqlCommand("SELECT Photo,FirstName,LastName,Email,PassportNumber,PassportOfficeName FROM Registrations as r  JOIN Passport_Data as pd on r.id = pd.RegistrationId join Passport as p on r.id = p.RegistrationId;", connection);
-                command.CommandType = CommandType.Text;
+                command = new SqlCommand("SPS_PassRegisPass_Data", connection);
+                command.CommandType = CommandType.StoredProcedure;
                 adapter = new SqlDataAdapter(command);
                 table = new DataTable();
                 adapter.Fill(table);
@@ -300,8 +300,8 @@ namespace PassportGenerator.Repository
         {
             try
             {
-                command = new SqlCommand("SELECT Photo,FirstName,LastName,Email,PassportNumber,PassportOfficeName FROM Registrations as r  \r\n  JOIN Passport_Data as pd on r.id = pd.RegistrationId join Passport as p on r.id = p.RegistrationId where r.Email = @email;", connection);
-                command.CommandType = CommandType.Text;
+                command = new SqlCommand("SPS_PassRegisPass_DataUsingEmail", connection);
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@email", email);
                 adapter = new SqlDataAdapter(command);
                 table = new DataTable();

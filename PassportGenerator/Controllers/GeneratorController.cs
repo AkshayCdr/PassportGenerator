@@ -76,6 +76,8 @@ namespace PassportGenerator.Controllers
         /// <returns></returns>
         public ActionResult UserGeneratedPassportList(string email)
         {
+            //check if passport is available or not 
+            //find registration id using email and check wheather available or not 
             var data = generatorRepository.GeneratedPassportListUser(email);
 
             //check passport generated ot not 

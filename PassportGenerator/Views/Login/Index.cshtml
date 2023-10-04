@@ -40,15 +40,25 @@
         </script>
     }
     @if (TempData["ChangePassSucc"] != null)
-            {
-                <script>
+    {
+        <script>
                     alert('@TempData["ChangePassSucc"]')
-                </script>
-            }
+        </script>
+    }
     @TempData["ChangePassSucc"];
+    @if (TempData["InsertMsg"] != null)
+    {
+        <script>
+                    alert('@TempData["InsertMsg"]')
+        </script>
+    }
+    @if (TempData["InsertErrorMsg"] != null)
+    {
+        <script>
+                    alert('@TempData["InsertErrorMsg"]')
+        </script>
+    }
 
-    @TempData["InsertMsg"];
-    @TempData["InsertErrorMsg"];
     <div class="login">
         <div class="heading">
             <h1>Sign in</h1>

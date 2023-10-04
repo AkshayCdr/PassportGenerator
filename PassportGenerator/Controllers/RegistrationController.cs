@@ -52,12 +52,12 @@ namespace PassportGenerator.Controllers
             {
                 if (registrationRepository.InsertUser(registration))
                 {
-                    TempData["InsertMsg"] = "<script>alert('User saved successfully.')</script>";
+                    TempData["InsertMsg"] = "User saved successfully.";
                     return RedirectToAction("Index", "Login");
                 }
                 else
                 {
-                    TempData["InsertErrorMsg"] = "<script>alert('Error')</script>";
+                    TempData["InsertErrorMsg"] = "Error";
                 }
             }
             return View(registration);
