@@ -77,10 +77,12 @@
                         <td>@Html.DisplayFor(modelItem => item.Role)</td>
                         <td>
                             @*<a href="@Url.Action("Edit", new { id=item.Id })" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="@Url.Action("Details","Registration", new { id=item.Id })" class="btn btn-info btn-sm">Details</a>
-                            <a href="@Url.Action("Delete", new { id=item.Id })" class="btn btn-danger btn-sm">Delete</a>*@
+        <a href="@Url.Action("Details","Registration", new { id=item.Id })" class="btn btn-info btn-sm">Details</a>
+        <a href="@Url.Action("Delete", new { id=item.Id })" class="btn btn-danger btn-sm">Delete</a>*@
                             @Html.ActionLink("Add Admin", "AddRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
-                            @Html.ActionLink("Remove Admin", "RemoveRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
+                            @Html.ActionLink("Add police", "AddPolice", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
+                            @Html.ActionLink("Remove Role", "RemoveRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })
+                            @*@Html.ActionLink("Remove police", "RemoveRole", "Registration", new { email = item.Email }, new { @class = "button btn btn-danger btn-sm" })*@
 
                         </td>
                     </tr>

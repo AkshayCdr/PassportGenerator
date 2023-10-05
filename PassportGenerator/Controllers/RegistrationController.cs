@@ -210,6 +210,36 @@ namespace PassportGenerator.Controllers
         {
             var data = registrationRepository.GetUsersAndRoles();
             return View(data);
-        }  
+        }
+
+        /// <summary>
+        /// To add police role 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public ActionResult AddPolice(string email)
+        {
+            //find id from email
+            int id = registrationRepository.GetUserIdFromEmail(email);
+
+            //check wheather user id is already present in the code and retrive the user role
+            UserRole userrole = new UserRole();
+            userrole = registrationRepository.CheckUserIdUserRole(id);
+            if (userrole == null)
+            {
+                userrole = new UserRole
+                {
+                    UserId = id,
+                    Role = "Police"
+                };
+                registrationRepository.InsertIntoRole(userrole);
+                return RedirectToAction("RoleView");
+            }
+            else
+            {
+                return RedirectToAction("RoleView");
+            }
+        }
+
     }
 }
