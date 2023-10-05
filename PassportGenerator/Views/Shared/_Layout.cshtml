@@ -89,11 +89,11 @@
                         <li>@Html.ActionLink("Settings", "Settings", "Passport")</li>
                     }
                     else if (User.IsInRole("Police"))
-                    {   
+                    {
                         <li>
-                             <a href="@Url.Action("UserGeneratedPassportList", "Generator", new { email = User.Identity.Name })">List of Passport Applications</a>
+                            <a href="@Url.Action("UserGeneratedPassportList", "Generator", new { email = User.Identity.Name })">List of Passport Applications</a>
                         </li>
-                       
+
                     }
 
                     else
@@ -113,7 +113,7 @@
                         <li>
                             <a href="@Url.Action("Details", "Registration", new { email = User.Identity.Name })">Profile</a>
                         </li>
-
+                        <li>@Html.ActionLink("Details of Police", "Details", "Police")</li>
                     }
                 }
                 else

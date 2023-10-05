@@ -21,7 +21,13 @@ namespace PassportGenerator.Models
         public string State { get; set; }
         public string StatusName { get; set; }
         public int RegistrationId { get; set; }
-       
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfIssue { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfExpiry { get; set; }
 
 
     }

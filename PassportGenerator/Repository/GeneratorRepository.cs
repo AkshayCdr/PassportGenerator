@@ -78,7 +78,17 @@ namespace PassportGenerator.Repository
         /// <returns></returns>
         public bool GeneratePassport(Generator generator)
         {
+            //Passport Number - random string
             string randomString = RandomStringGenerator.GenerateRandomString();
+
+            DateTime currentDateTime = DateTime.Today;
+            string dateOfIssue = currentDateTime.ToString("dd/MM/yyyy");
+
+            //Adding Date of issue
+            generator.DateOfIssue = DateTime.Parse(dateOfIssue);
+
+            //Adding Date of Expiry
+            generator.DateOfExpiry = generator.DateOfIssue.AddYears(10);
 
             //if already generated return false
             if (checkPassportGenerated(generator.RegistrationId))
@@ -204,6 +214,10 @@ namespace PassportGenerator.Repository
                 command.Parameters.AddWithValue("@status", "Generated");
                 command.Parameters.AddWithValue("@passportnumber", randomString);
                 command.Parameters.AddWithValue("@registrationid", generator.RegistrationId);
+                command.Parameters.AddWithValue("@dateofissue", generator.DateOfIssue);
+                command.Parameters.AddWithValue("@dateofexpiry", generator.DateOfExpiry);
+                
+
                 connection.Open();
                 int r = command.ExecuteNonQuery();
             }
