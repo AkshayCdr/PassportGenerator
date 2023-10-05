@@ -256,6 +256,7 @@
     <Content Include="Views\Login\ForgetPassword.cshtml" />
     <Content Include="Views\Generator\ListOfGeneratedPassport.cshtml" />
     <Content Include="Views\Generator\UserGeneratedPassportList.cshtml" />
+    <Content Include="Views\Passport\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

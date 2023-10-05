@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Settings";
+}
+<h2>Settings</h2>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+</head>
+<body>
+    @if (@TempData["PassofficeNameSucc"] != null)
+    {
+        <script>
+        alert('@TempData["PassofficeNameSucc"]');
+        </script>
+    }
+
+    @if (@TempData["PassofficeNameFail"] != null)
+    {
+        <script>
+        alert('@TempData["PassofficeNameFail"]');
+        </script>
+    }
+
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label for="PassportOfficeName">Passport Office</label>
+            <input type="text" name="PassportOfficeName" id="PassportOfficeName" value="" />
+        </div>
+
+        <button id="submit">Add</button>
+    }
+    @*<script>
+            var passportOfficeNameElement = document.getElementById("PassportOfficeName");
+
+            var button = document.getElementById("submit");
+
+            button.addEventListener('click', () => {
+                var passportofficename = passportOfficeNameElement.value;
+
+                var passportOfficeNameObject = {
+                    PassportOfficeName: passportofficename;
+                }
+
+                $.ajax({
+                    url:'/Passport/Settings',
+                    type: POST,
+                    data: passportOfficeNameObject,
+                    success: function (response) {
+                        // Handle the response if needed
+                        // For example, you can redirect to another page
+                        window.location.href = '/YourControllerName/AnotherAction'; // Replace with the desired action
+                    },
+                    error: function (error) {
+                        // Handle any errors that occur during the AJAX request
+                        console.error(error);
+                    }
+
+
+                })
+
+            })
+        </script>*@
+</body>
+</html>

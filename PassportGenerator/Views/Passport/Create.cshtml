@@ -44,11 +44,19 @@
         @using (Html.BeginForm("Create", "Passport", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
+            @*<div class="form-group">
                 <label for="PassportOfficeName">Passport Office</label>
                 @Html.DropDownListFor(model => model.PassportOfficeNAme, new SelectList(new[] { "Kannur", "Kozhikode", "Malappuram", "Thrissur", "Wayanad", "Ernakulam", "Palakkad", "Kollam", "Trivandrum" }), "Select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PassportOfficeNAme, "", new { @class = "text-danger" })
+            </div>*@
+
+            <div class="form-group">
+                <label for="PassportOfficeName">Passport Office</label>
+                @Html.DropDownList("PassportOfficeName", ViewBag.PassportOfficeNames as SelectList, "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PassportOfficeNAme, "", new { @class = "text-danger" })
             </div>
+
+
 
             <div class="form-group">
                 <label for="photo">Photo:</label>

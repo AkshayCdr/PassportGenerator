@@ -46,7 +46,7 @@
                 <li>@Html.ActionLink("Sign up", "Create", "Registration", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("News", "News", "Home", new { area = "" }, new { @class = "nav-link" })</li>
 
-                @{ 
+                @{
                     var username = User.Identity.Name.Split('@')[0];
                 }
 
@@ -86,6 +86,14 @@
                         <li> @Html.ActionLink("Passport Applications", "List", "Passport")</li>
                         <li>@Html.ActionLink("Approve", "Details", "Status")</li>
                         <li>@Html.ActionLink("Generated Passports", "ListOfGeneratedPassport", "Generator")</li>
+                        <li>@Html.ActionLink("Settings", "Settings", "Passport")</li>
+                    }
+                    else if (User.IsInRole("Police"))
+                    {   
+                        <li>
+                             <a href="@Url.Action("UserGeneratedPassportList", "Generator", new { email = User.Identity.Name })">List of Passport Applications</a>
+                        </li>
+                       
                     }
 
                     else

@@ -351,5 +351,69 @@ namespace PassportGenerator.Repository
             finally { connectionLink.Close(); }
         }
 
+        /// <summary>
+        /// To get office names from office table
+        /// to populate office name in view
+        /// office name added from admin side
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getOfficeNames()
+        {
+            try
+            {
+                List<string> list = new List<string>();
+                command = new SqlCommand("SPS_Offices", connectionLink);
+                command.CommandType = CommandType.StoredProcedure;
+                connectionLink.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string officeName = reader.GetString(0);
+                    list.Add(officeName);
+                }
+                return list;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { connectionLink.Close(); }
+        }
+
+
+        /// <summary>
+        /// To add office name from admin side 
+        /// it will show in user panel as office names
+        /// </summary>
+        /// <param name="OfficeName"></param>
+        /// <returns></returns>
+        public bool addOfficeName(string OfficeName)
+        {
+            try
+            {
+                command = new SqlCommand("SPI_Offices", connectionLink);
+                command.CommandType = CommandType.StoredProcedure;
+                connectionLink.Open();
+                command.Parameters.AddWithValue("@officeNames", OfficeName);
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally { connectionLink.Close(); } 
+
+        }
+
     }
 }

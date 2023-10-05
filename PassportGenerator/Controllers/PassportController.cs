@@ -46,6 +46,15 @@ namespace PassportGenerator.Controllers
         /// <returns></returns>
         public ActionResult Create()
         {
+            //var passportOfficeNames = new List<string>
+            //{
+            //    "Kannur", "Kozhikode", "Malappuram", "Thrissur", "Wayanad",
+            //    "Ernakulam", "Palakkad", "Kollam", "Trivandrum"
+            //};
+            var passportOfficeNames = passportRepository.getOfficeNames();
+
+            // Pass the list to the view
+            ViewBag.PassportOfficeNames = new SelectList(passportOfficeNames);
             return View();
         }
 
@@ -141,16 +150,43 @@ namespace PassportGenerator.Controllers
         public ActionResult Delete(int id)
         {
             string email = User.Identity.Name;
-            if (passportRepository.DeleteUser(id,email))
+            if (passportRepository.DeleteUser(id, email))
             {
                 TempData["PassportDelete"] = "<script>alert('Passport Data Deleted Succesfully.')</script>";
-                return RedirectToAction("UserList",new { email = User.Identity.Name});
+                return RedirectToAction("UserList", new { email = User.Identity.Name });
             }
             else
             {
                 TempData["PassportDeleteError"] = "<script>alert('Passport Data Deletion Error.')</script>";
-                return RedirectToAction("UserList", new {email = User.Identity.Name});
+                return RedirectToAction("UserList", new { email = User.Identity.Name });
             }
         }
+
+
+        /// <summary>
+        /// Setting for adding passport office names
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Settings()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Settings(string PassportOfficeName)
+        {
+            if(passportRepository.addOfficeName(PassportOfficeName))
+            {
+                TempData["PassofficeNameSucc"] = "Added successfully";
+                return View();
+            }
+            else
+            {
+                TempData["PassofficeNameFail"] = "Failed to add";
+            }
+
+            return View();
+        }
+
     }
 }
