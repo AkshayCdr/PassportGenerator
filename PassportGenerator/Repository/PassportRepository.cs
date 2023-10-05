@@ -20,7 +20,9 @@ namespace PassportGenerator.Repository
         DataTable table;
 
         /// <summary>
-        /// To get the data from passport data
+        /// To get the data from passport_data table
+        /// details of passport applications
+        /// Admin
         /// </summary>
         /// <returns></returns>
         public List<Passport> GetUsers()
@@ -34,19 +36,25 @@ namespace PassportGenerator.Repository
                 adapter.Fill(table);
 
                 List<Passport> list = new List<Passport>();
-                foreach (DataRow table in table.Rows)
+                foreach (DataRow row in table.Rows)
                 {
-                    list.Add(
-                        new Passport()
-                        {
-                            Id = (int)table["id"],
-                            PassportOfficeNAme = table["PassportOfficeName"].ToString(),
-                            PhotoBytes = (byte[])table["Photo"],
-                            IdentityProofBytes = (byte[])table["IdentityProof"],
-                            BirthProofBytes = (byte[])table["BirthProof"],
-                            NationalityProofBytes = (byte[])table["NationalityProof"],
-                            SignatureBytes = (byte[])table["Singnature"]
-                        });
+                    Passport passport = new Passport()
+                    {
+                        Id = (int)row["id"],
+                        PassportOfficeNAme = row["PassportOfficeName"].ToString(),
+                        PhotoBytes = (byte[])row["Photo"],
+                        IdentityProofBytes = (byte[])row["IdentityProof"],
+                        BirthProofBytes = (byte[])row["BirthProof"],
+                        NationalityProofBytes = (byte[])row["NationalityProof"]
+                    };
+
+                    // Check if the Signature column contains null value
+                    if (row["Signature"] != DBNull.Value)
+                    {
+                        passport.SignatureBytes = (byte[])row["Signature"];
+                    }
+
+                    list.Add(passport);
                 }
                 return list;
             }
@@ -57,9 +65,10 @@ namespace PassportGenerator.Repository
             finally { connectionLink.Close(); }
         }
 
+
         /// <summary>
         /// To get data from passport data
-        /// of individual user 
+        /// of individual user - User
         /// using the email of the user
         /// </summary>
         /// <param name="email"></param>

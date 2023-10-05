@@ -49,6 +49,67 @@
                 </tr>
             </thead>
             <tbody>
+                @*@foreach (Passport passport in Model)
+        {
+            <tr>
+                <td>@passport.Id</td>
+                <td>
+                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
+                </td>
+                <td>
+                    <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" download>Birth Proof</a>
+                </td>
+                <td>
+                    <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" download>Identity Proof</a>
+                </td>
+                <td>
+                    <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>Nationality</a>
+                </td>
+                <td>
+                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", new { id = passport.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }*@
+                @*@foreach (Passport passport in Model)
+        {
+            <tr>
+                <td>@passport.Id</td>
+                <td>
+                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
+                </td>
+                <td>
+                     Birth Proof PDF
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.BirthProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+                <td>
+                     Identity Proof PDF
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.IdentityProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+                <td>
+                     Nationality Proof PDF
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.NationalityProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+                <td>
+                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", new { id = passport.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }*@
+
+
                 @foreach (Passport passport in Model)
                 {
                     <tr>
@@ -57,16 +118,32 @@
                             <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
                         </td>
                         <td>
-                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" download>Birth Proof</a>
+                            <!-- Birth Proof PDF -->
+                            <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.BirthProofBytes)')">
+                                <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                            </a>
                         </td>
                         <td>
-                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" download>Identity Proof</a>
+                            <!-- Identity Proof PDF -->
+                            <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.IdentityProofBytes)')">
+                                <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                            </a>
                         </td>
                         <td>
-                            <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>Nationality</a>
+                            <!-- Nationality Proof PDF -->
+                            <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.NationalityProofBytes)')">
+                                <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                            </a>
                         </td>
                         <td>
-                            <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
+                            @if (passport.SignatureBytes != null)
+                            {
+                                <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
+                            }
+                            else
+                            {
+                                <span>No Signature</span>
+                            }
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "btn btn-warning btn-sm" })
@@ -74,6 +151,7 @@
                         </td>
                     </tr>
                 }
+
             </tbody>
         </table>
     </div>

@@ -78,15 +78,24 @@
                                 <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.PhotoBytes)" style="height:100px;width:100px;" />
                             </td>
                             <td>
-                                <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" download>Birth Proof</a>
+                                <!-- Birth Proof PDF -->
+                                <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.BirthProofBytes)')">
+                                    <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.BirthProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                                </a>
                             </td>
                             <td>
-                                <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" download>Identity Proof</a>
+                                <!-- Identity Proof PDF -->
+                                <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.IdentityProofBytes)')">
+                                    <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.IdentityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                                </a>
                             </td>
                             <td>
-                                <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>Nationality</a>
+                                <!-- Nationality Proof PDF -->
+                                <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(passport.NationalityProofBytes)')">
+                                    <iframe src="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                                </a>
                             </td>
-                            <td> 
+                            <td>
                                 <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
                             </td>
                             <td>
@@ -98,6 +107,26 @@
                 </tbody>
             </table>
         </div>
+
+
+        <script>
+            function openPdf(base64Pdf) {
+                // Create a Blob object from the base64 PDF data
+                var byteCharacters = atob(base64Pdf);
+                var byteNumbers = new Array(byteCharacters.length);
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                // Create a URL for the Blob object
+                var blobUrl = URL.createObjectURL(blob);
+
+                // Open the PDF in a new tab
+                window.open(blobUrl, '_blank');
+            }
+        </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
