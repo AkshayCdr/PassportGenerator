@@ -82,6 +82,12 @@
                 @Html.ValidationMessageFor(model => model.NationalityProof, "", new { @class = "text-danger" })
             </div>
 
+            <div class="form-group">
+                <label for="Signature">Signature</label>
+                <input type="file" id="Signature" name="Signature" class="form-control-file" />
+                @Html.ValidationMessageFor(model => model.Signature, "", new { @class = "text-danger" })
+            </div>
+
             if (User.Identity.IsAuthenticated)
             {
                 <input type="hidden" id="Email" name="Email" class="form-control" value="@User.Identity.Name" />

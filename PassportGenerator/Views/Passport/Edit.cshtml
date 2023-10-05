@@ -46,9 +46,15 @@
         @using (Html.BeginForm("Edit", "Passport", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
+            @*<div class="form-group">
                 <label for="PassportOfficeName">Passport Office</label>
                 @Html.DropDownListFor(model => model.PassportOfficeNAme, new SelectList(new[] { "Kannur", "Kozhikode", "Malappuram", "Thrissur", "Wayanad", "Ernakulam", "Palakkad", "Kollam", "Trivandrum" }), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PassportOfficeNAme, "", new { @class = "text-danger" })
+            </div>*@
+
+            <div class="form-group">
+                <label for="PassportOfficeName">Passport Office</label>
+                @Html.DropDownList("PassportOfficeName", ViewBag.PassportOfficeNames as SelectList, "Select", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PassportOfficeNAme, "", new { @class = "text-danger" })
             </div>
 
@@ -79,6 +85,12 @@
                 <a href="data:application/pdf;base64,@Convert.ToBase64String(Model.NationalityProofBytes)" target="_blank">View Proof of Nationality</a>
                 <input type="file" id="nationalityProof" name="nationalityProof" class="form-control-file" />
                 @Html.ValidationMessageFor(model => model.NationalityProof, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="Signature">Signature</label>
+                <input type="file" id="Signature" name="Signature" class="form-control-file" />
+                @Html.ValidationMessageFor(model => model.Signature, "", new { @class = "text-danger" })
             </div>
 
             if (User.Identity.IsAuthenticated)

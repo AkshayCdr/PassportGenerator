@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace PassportGenerator.Models
         [Required(ErrorMessage = "Please select a proof of nationality.")]
         public HttpPostedFileBase NationalityProof { get; set; }
         public byte[] NationalityProofBytes { get; set; }
+        public HttpPostedFileBase Signature { get; set; }
+        public byte[] SignatureBytes { get; set; }
         public int RegistrationId { get; set; }
         public string Email { get; set; }
     }

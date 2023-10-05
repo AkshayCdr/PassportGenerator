@@ -106,6 +106,8 @@ namespace PassportGenerator.Controllers
         public ActionResult Edit(int id)
         {
             var data = passportRepository.GetUsers().Find(passport => passport.Id == id);
+            var passportOfficeNames = passportRepository.getOfficeNames();
+            ViewBag.PassportOfficeNames = new SelectList(passportOfficeNames);
             if (data != null)
             {
                 return View(data);
@@ -129,12 +131,12 @@ namespace PassportGenerator.Controllers
             {
                 if (passportRepository.UpdateUser(passport))
                 {
-                    TempData["PassportEdit"] = "<script>alert('Passport Data Edited Succesfully.')</script>";
+                    TempData["PassportEdit"] = "Passport Data Edited Succesfully";
                     return RedirectToAction("UserList", new { email = passport.Email });
                 }
                 else
                 {
-                    TempData["PassportEditFail"] = "<script>alert('Passport Data Update failed.')</script>";
+                    TempData["PassportEditFail"] = "Passport Data Update failed";
                     return RedirectToAction("UserList", new { email = passport.Email });
                 }
             }

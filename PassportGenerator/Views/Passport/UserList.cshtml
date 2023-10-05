@@ -5,7 +5,6 @@
     ViewBag.Title = "UserList";
 }
 
-    <h2>UserList</h2>
     <html>
     <head>
         <meta name="viewport" content="width=device-width" />
@@ -39,11 +38,23 @@
         @if (TempData["PassportMessage"] != null)
         {
             <script>
-            alert("@TempData["PassportMessage"]");
+                alert("@TempData["PassportMessage"]");
             </script>
         }
-        @TempData["PassportEdit"];
-        @TempData["PassportEditFail"];
+
+        @if (TempData["PassportEdit"] != null)
+        {
+            <script>
+                alert("@TempData["PassportEdit"]");
+            </script>
+        }
+
+        @if (TempData["PassportEditFail"] != null)
+        {
+            <script>
+                alert("@TempData["PassportEditFail"]");
+            </script>
+        }
         <div class="container">
             <h1 class="mt-5 mb-3">Passport List</h1>
             <table class="table table-striped">
@@ -54,6 +65,7 @@
                         <th scope="col">Birth Proof</th>
                         <th scope="col">Identity Proof</th>
                         <th scope="col">Nationality</th>
+                        <th scope="col">Singnature</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -73,6 +85,9 @@
                             </td>
                             <td>
                                 <a href="data:application/pdf;base64,@Convert.ToBase64String(passport.NationalityProofBytes)" download>Nationality</a>
+                            </td>
+                            <td> 
+                                <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(passport.SignatureBytes)" style="height:100px;width:100px;" />
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = passport.Id }, new { @class = "btn btn-warning btn-sm" })

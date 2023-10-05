@@ -44,7 +44,8 @@ namespace PassportGenerator.Repository
                             PhotoBytes = (byte[])table["Photo"],
                             IdentityProofBytes = (byte[])table["IdentityProof"],
                             BirthProofBytes = (byte[])table["BirthProof"],
-                            NationalityProofBytes = (byte[])table["NationalityProof"]
+                            NationalityProofBytes = (byte[])table["NationalityProof"],
+                            SignatureBytes = (byte[])table["Singnature"]
                         });
                 }
                 return list;
@@ -87,7 +88,8 @@ namespace PassportGenerator.Repository
                             PhotoBytes = (byte[])table["Photo"],
                             IdentityProofBytes = (byte[])table["IdentityProof"],
                             BirthProofBytes = (byte[])table["BirthProof"],
-                            NationalityProofBytes = (byte[])table["NationalityProof"]
+                            NationalityProofBytes = (byte[])table["NationalityProof"],
+                            SignatureBytes = (byte[])table["Signature"]
                         });
                 }
                 return list;
@@ -172,6 +174,7 @@ namespace PassportGenerator.Repository
                 passport.BirthProofBytes = ConvertToByteArray(passport.BirthProof);
                 passport.IdentityProofBytes = ConvertToByteArray(passport.IdentityProof);     
                 passport.NationalityProofBytes = ConvertToByteArray(passport.NationalityProof);
+                passport.SignatureBytes = ConvertToByteArray(passport.Signature);
 
                 //checked wheather status already exist using registration id
                 
@@ -179,6 +182,7 @@ namespace PassportGenerator.Repository
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@status", "pending");
                 command.Parameters.AddWithValue("@registrationId", passport.RegistrationId);
+
 
                 connectionLink.Open();
                 command.ExecuteNonQuery();
@@ -193,6 +197,7 @@ namespace PassportGenerator.Repository
                 command.Parameters.AddWithValue("@BirthProof", passport.BirthProofBytes);
                 command.Parameters.AddWithValue("@NationalityProof", passport.NationalityProofBytes);
                 command.Parameters.AddWithValue("@RegistrationID", passport.RegistrationId);
+                command.Parameters.AddWithValue("@Signature", passport.SignatureBytes);
 
                 connectionLink.Open();
 
@@ -226,6 +231,7 @@ namespace PassportGenerator.Repository
                 passport.BirthProofBytes = ConvertToByteArray(passport.BirthProof);
                 passport.IdentityProofBytes = ConvertToByteArray(passport.IdentityProof);
                 passport.NationalityProofBytes = ConvertToByteArray(passport.NationalityProof);
+                passport.SignatureBytes = ConvertToByteArray(passport.Signature);
 
                 command = new SqlCommand("SPU_Passport", connectionLink);
                 command.CommandType = CommandType.StoredProcedure;
@@ -234,7 +240,9 @@ namespace PassportGenerator.Repository
                 command.Parameters.AddWithValue("@IdentityProof", passport.BirthProofBytes);
                 command.Parameters.AddWithValue("@BirthProof", passport.BirthProofBytes);
                 command.Parameters.AddWithValue("@NationalityProof", passport.NationalityProofBytes);
+                command.Parameters.AddWithValue("@Signature", passport.SignatureBytes);
                 command.Parameters.AddWithValue("@id", passport.Id);
+
 
                 connectionLink.Open();
 
