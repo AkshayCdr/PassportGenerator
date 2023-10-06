@@ -151,5 +151,48 @@ namespace PassportGenerator.Repository
             }
 
         }
+
+        /// <summary>
+        /// To get the list of applications 
+        /// which are approved by the police 
+        /// </summary>
+        public List<Police> ListOfPoliceApprovedApp()
+        {
+            try
+            {
+                command = new SqlCommand("SPS_PoliceAdmin", connectionLink);
+                command.CommandType = CommandType.StoredProcedure;
+                adapter = new SqlDataAdapter(command);
+                table = new DataTable();
+                adapter.Fill(table);
+                List<Police> list = new List<Police>();
+                foreach (DataRow table in table.Rows)
+                {
+                    list.Add(new Police()
+                    {
+                        FirstName = table["FirstName"].ToString(),
+                        LastName = table["LastName"].ToString(),
+                        AdminApproveStatus = table["AdminApproval"].ToString(),
+                        PoliceApproveStatus = table["PoliceApproval"] == DBNull.Value ? null: table["PoliceApproval"].ToString(),
+                        Generated = table["Status"].ToString(),
+                        //PoliceApproveDate = table["PolAppDate"] == DBNull.Value ? null : DateTime.Parse(table["PolAppDate"].ToString())
+                        PoliceApproveDate = table["PolAppDate"] == DBNull.Value ? (DateTime?)null : DateTime.Parse(table["PolAppDate"].ToString()).Date,
+                        //PoliceApproveDate = table["PolAppDate"] == DBNull.Value ? null : table["PolAppDate"].ToString(),
+                    });
+                }
+                return list;
+
+                //firtname
+                //Lastname
+                //admin approval
+                //police approval
+                //wheather passport generated or not 
+                //if generated date of generation and  
+            }
+            finally
+            {
+                connectionLink.Close();
+            }
+        }
     }
 }

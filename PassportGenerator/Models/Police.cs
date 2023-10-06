@@ -26,5 +26,10 @@ namespace PassportGenerator.Models
         public byte[] NationalityProofBytes { get; set; }
         public HttpPostedFileBase Signature { get; set; }
         public byte[] SignatureBytes { get; set; }
+        public string Generated { get;set; }
+        public string AdminApproveStatus { get; set; }
+        public string PoliceApproveStatus { get; set; }
+        public DateTime? PoliceApproveDate { get; set; }
+        //public String PoliceApproveDate { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace PassportGenerator.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfExpiry { get; set; }
+        public string PoliceApproval { get; set; }
 
 
     }

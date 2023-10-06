@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace PassportGenerator.Controllers
 {
@@ -24,12 +25,12 @@ namespace PassportGenerator.Controllers
             List<Police> polices = new List<Police>();
             foreach (var application in data)
             {
+                //if police already approved it is not shown in the list 
                 if(!policeRepository.CheckPoliceApproval(application.RegistrationId))
                 {
                     polices.Add(application);
                 }
             }
-            //only display data which is approved by admin 
             //dont display data which is already approved by police 
             return View(polices);
         }
@@ -54,5 +55,21 @@ namespace PassportGenerator.Controllers
             TempData["PoliceApproveError"] = "Police Approve Error";
             return RedirectToAction("List");
         }
+
+        /// <summary>
+        /// To show users which are approved by
+        /// police 
+        /// User - Admin 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult PoliceApprovedList()
+        {
+            var data = policeRepository.ListOfPoliceApprovedApp();
+            // Assuming item.PoliceApproveDate is of type DateTime?
+            return View(data);
+        }
+
+
     }
 }

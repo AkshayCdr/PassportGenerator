@@ -13,16 +13,17 @@ namespace PassportGenerator.Controllers
         GeneratorRepository generatorRepository = new GeneratorRepository();
         /// <summary>
         /// Showing list of users to Generate passport
+        /// Only list which are approved and Not already registered
         /// </summary>
         /// <returns></returns>
         public ActionResult List()
         {
             var data = generatorRepository.GetPassportDetails();
             List<Generator> list = new List<Generator>();
-            //only list data to generate if it is approved
+            //only list data to generate if it is approved and check wheather already generated 
             foreach (Generator i in data)
             {
-                if(i.StatusName == "Approved" && generatorRepository.checkPassportGenerated(i.RegistrationId))
+                if(i.StatusName == "Approved" && generatorRepository.checkPassportGenerated(i.RegistrationId) && i.PoliceApproval == "Approved")
                 {
                     list.Add(i);
                 }
@@ -31,7 +32,8 @@ namespace PassportGenerator.Controllers
         }
 
         /// <summary>
-        /// Show passport after Generating passport
+        /// Generate Passport
+        /// Generate Passport in the PDF file 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -57,6 +59,7 @@ namespace PassportGenerator.Controllers
 
         /// <summary>
         /// Showing the list of generated passport
+        /// Admin panel
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -72,6 +75,7 @@ namespace PassportGenerator.Controllers
         /// User to view the details of the 
         /// generated passport and to know
         /// wheather passport generated or not 
+        /// User Panel
         /// </summary>
         /// <returns></returns>
         public ActionResult UserGeneratedPassportList(string email)

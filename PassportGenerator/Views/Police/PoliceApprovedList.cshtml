@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PassportGenerator.Models.Police>
+
+@{
+    ViewBag.Title = "PoliceApprovedList";
+}
+
+<h2>Police Approved List</h2>
+
+
+<table class="table">
+    <tr>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Generated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminApproveStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PoliceApproveStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PoliceApproveDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Generated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminApproveStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PoliceApproveStatus)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.PoliceApproveDate)
+        </td>*@
+
+        @{
+            string value = null;
+            if (item.PoliceApproveDate != null)
+            {
+                value = item.PoliceApproveDate.Value.ToString("dd/MM/yyyy");
+            }
+        }
+        <td>
+            @value
+        </td>
+
+    </tr>
+}
+
+</table>

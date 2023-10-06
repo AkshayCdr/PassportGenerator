@@ -18,6 +18,7 @@ namespace PassportGenerator.Models
         [ForeignKey("Registration")]
         public int RegistrationId { get; set; }
         public string Email { get; set; }
+        public string PoliceApproval { get;set; }
 
         public Registration Registration { get; set; }
     }

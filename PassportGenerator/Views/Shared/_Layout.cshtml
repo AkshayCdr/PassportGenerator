@@ -87,6 +87,10 @@
                         <li>@Html.ActionLink("Approve", "Details", "Status")</li>
                         <li>@Html.ActionLink("Generated Passports", "ListOfGeneratedPassport", "Generator")</li>
                         <li>@Html.ActionLink("Settings", "Settings", "Passport")</li>
+                        <li>
+                            <a href="@Url.Action("PoliceApprovedList", "Police")">List of Passport Applications</a>
+                        </li>
+
                     }
                     //Police panel
                     else if (User.IsInRole("Police"))

@@ -58,7 +58,8 @@ namespace PassportGenerator.Repository
                         Gender = table["Gender"].ToString(),
                         State = table["State"].ToString(),
                         StatusName = table["status"].ToString(),
-                        RegistrationId = (int)table["id"]
+                        RegistrationId = (int)table["id"],
+                        PoliceApproval = table["PoliceApproval"] == DBNull.Value ? null : table["PoliceApproval"].ToString()
                     });
                 }
 
@@ -89,6 +90,9 @@ namespace PassportGenerator.Repository
 
             //Adding Date of Expiry
             generator.DateOfExpiry = generator.DateOfIssue.AddYears(10);
+
+            //for adding correct format in pdf
+            string dateofExpiry = generator.DateOfExpiry.ToString("dd/MM/yyyy");
 
             //if already generated return false
             if (checkPassportGenerated(generator.RegistrationId))
@@ -157,6 +161,9 @@ namespace PassportGenerator.Repository
                 list.Add(new iTextSharp.text.ListItem($"Date of Birth: {date}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"Gender: {generator.Gender}", infoFont));
                 list.Add(new iTextSharp.text.ListItem($"State: {generator.State}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"State: {dateOfIssue}", infoFont));
+                list.Add(new iTextSharp.text.ListItem($"State: {dateofExpiry}", infoFont));
+
 
                 doc.Add(list);
             }

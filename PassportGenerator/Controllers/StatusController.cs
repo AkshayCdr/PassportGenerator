@@ -13,39 +13,36 @@ namespace PassportGenerator.Controllers
 
         StatusRepository statusRepository = new StatusRepository();
 
-        public ActionResult List()
-        {
-            return View();
-        }
+        //public ActionResult List()
+        //{
+        //    return View();
+        //}
 
-        
+        /// <summary>
+        /// To Track the Status of the Passport
+        /// Application
+        /// User module
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public ActionResult DetailsofUser(string email)
         {
             var data = statusRepository.GetDetails(email);
             return View(data);
         }
 
+        /// <summary>
+        /// To view and Set the status 
+        /// Admin module - to approve
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Details()
         {
             var data = statusRepository.GetDetils();
             return View(data);
         }
 
-        //public ActionResult Edit(int id)
-        //{
-        //    var data = statusRepository.GetDetils().Find(a => a.RegistrationId == id);
-        //    return View(data);
-        //}
-
-        //[HttpPost]
-        //public ActionResult Edit(Status status)
-        //{
-        //    if (statusRepository.EditDetils(status))
-        //    {
-        //        RedirectToAction("Details", "Status");
-        //    }
-        //    return View();
-        //}
+       
 
         /// <summary>
         /// Set the status of 

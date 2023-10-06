@@ -106,6 +106,7 @@ namespace PassportGenerator.Repository
                                     //Email = reader.GetString(reader.GetOrdinal("Email")),
                                     StatusName = reader.GetString(reader.GetOrdinal("Status")),
                                     RegistrationId = reader.GetInt32(reader.GetOrdinal("RegistrationId")),
+                                    PoliceApproval = reader.GetString(reader.GetOrdinal("PoliceApproval"))
                                     //RegistrationId = registrationId
                                 };
 
