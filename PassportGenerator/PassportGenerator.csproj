@@ -129,6 +129,7 @@
     <Compile Include="Controllers\GeneratorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PassportController.cs" />
+    <Compile Include="Controllers\PoliceController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
@@ -140,6 +141,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Models\Passport.cs" />
     <Compile Include="Models\PassportGeneratedList.cs" />
+    <Compile Include="Models\Police.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\RegistrationRoles.cs" />
     <Compile Include="Models\Status.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Repository\GeneratorRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
     <Compile Include="Repository\PassportRepository.cs" />
+    <Compile Include="Repository\PoliceRepository.cs" />
     <Compile Include="Repository\RegistrationRepository.cs" />
     <Compile Include="Repository\StatusRepository.cs" />
     <Compile Include="WebRoleprovider.cs" />
@@ -257,6 +260,7 @@
     <Content Include="Views\Generator\ListOfGeneratedPassport.cshtml" />
     <Content Include="Views\Generator\UserGeneratedPassportList.cshtml" />
     <Content Include="Views\Passport\Settings.cshtml" />
+    <Content Include="Views\Police\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

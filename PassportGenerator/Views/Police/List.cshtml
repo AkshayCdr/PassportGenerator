@@ -1,0 +1,144 @@
+﻿@model IEnumerable<PassportGenerator.Models.Police>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+
+    @if(@TempData["PoliceApprove"] != null)
+            {
+                <script>
+                    alert("@TempData["PoliceApprove"]");
+                </script>
+            }
+
+    <table class="table">
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassportOfficeName)
+            </th>
+            <th>
+                Birth Certificate
+            </th>
+            <th>
+                Identity Proof
+            </th>
+            <th>
+                Nationality Proof
+            </th>
+            <th>
+                Signature
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" style="height:100px;width:100px;" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassportOfficeName)
+                </td>
+
+                <td>
+                    <!-- Birth Proof PDF -->
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.BirthProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.BirthProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+
+                <td>
+                    <!-- Identity Proof PDF -->
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.IdentityProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.IdentityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+
+                <td>
+                    <!-- Nationality Proof PDF -->
+                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.NationalityProofBytes)')">
+                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.NationalityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
+                    </a>
+                </td>
+
+                <td>
+                    @if (item.SignatureBytes != null)
+                    {
+                        <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.SignatureBytes)" style="height:100px;width:100px;" />
+                    }
+                    else
+                    {
+                        <span>No Signature</span>
+                    }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Approve", "Approve", new { id = item.RegistrationId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <script>
+        function openPdf(base64Pdf) {
+            // Create a Blob object from the base64 PDF data
+            var byteCharacters = atob(base64Pdf);
+            var byteNumbers = new Array(byteCharacters.length);
+            for (var i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            var blob = new Blob([byteArray], { type: 'application/pdf' });
+
+            // Create a URL for the Blob object
+            var blobUrl = URL.createObjectURL(blob);
+
+            // Open the PDF in a new tab
+            window.open(blobUrl, '_blank');
+        }
+    </script>
+
+</body>
+</html>
