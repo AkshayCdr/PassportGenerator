@@ -72,9 +72,8 @@ namespace PassportGenerator.Controllers
         }
 
         /// <summary>
-        /// User to view the details of the 
-        /// generated passport and to know
-        /// wheather passport generated or not 
+        /// User to view the generated
+        /// passport 
         /// User Panel
         /// </summary>
         /// <returns></returns>

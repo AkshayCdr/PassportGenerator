@@ -53,13 +53,13 @@
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
-                    Status Name
+                    Status name
                 </th>
                 <th>
-                    Police Approval
+                    Police approval
                 </th>
                 <th>
-                    Registration Id
+                    Registration id
                 </th>
                 <th></th>
             </tr>
@@ -80,9 +80,17 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.StatusName)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PoliceApproval)
-                        </td>
+                        @if(item.PoliceApproval == null)
+                    {
+                        <td>Pending</td>
+                    }
+                        else
+                    {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PoliceApproval)
+                    </td>
+                    }
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.RegistrationId)
                         </td>

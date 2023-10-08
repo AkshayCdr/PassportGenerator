@@ -7,119 +7,99 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-</head>
-<body>
-
-    @if(@TempData["PoliceApprove"] != null)
-            {
-                <script>
-                    alert("@TempData["PoliceApprove"]");
-                </script>
-            }
-
-    <table class="table">
-        <tr>
-            <th>
-                Image
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.State)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassportOfficeName)
-            </th>
-            <th>
-                Birth Certificate
-            </th>
-            <th>
-                Identity Proof
-            </th>
-            <th>
-                Nationality Proof
-            </th>
-            <th>
-                Signature
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" style="height:100px;width:100px;" />
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.State)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PassportOfficeName)
-                </td>
-
-                <td>
-                    <!-- Birth Proof PDF -->
-                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.BirthProofBytes)')">
-                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.BirthProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
-                    </a>
-                </td>
-
-                <td>
-                    <!-- Identity Proof PDF -->
-                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.IdentityProofBytes)')">
-                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.IdentityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
-                    </a>
-                </td>
-
-                <td>
-                    <!-- Nationality Proof PDF -->
-                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.NationalityProofBytes)')">
-                        <iframe src="data:application/pdf;base64,@Convert.ToBase64String(item.NationalityProofBytes)" style="border: none; width: 100px; height: 100px;"></iframe>
-                    </a>
-                </td>
-
-                <td>
-                    @if (item.SignatureBytes != null)
-                    {
-                        <img class="rounded float-start img-fluid" src="data:image/png;base64,@Convert.ToBase64String(item.SignatureBytes)" style="height:100px;width:100px;" />
-                    }
-                    else
-                    {
-                        <span>No Signature</span>
-                    }
-                </td>
-
-                <td>
-                    @Html.ActionLink("Approve", "Approve", new { id = item.RegistrationId })
-                </td>
-            </tr>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-button {
+            margin: 6px 6px;
+            width: 250px;
+            height: 30px;
+            padding: 10px 10px;
         }
 
-    </table>
+        .btn-vertical-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .custom-card {
+          
+            background: linear-gradient(to right, #DDEFBB, #FFEEEE) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        .custom-footer{
+            margin:6px 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    @if (@TempData["PoliceApprove"] != null)
+    {
+        <script>
+            alert("@TempData["PoliceApprove"]");
+        </script>
+    }
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>List of passport application</h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded custom-card" style="width: 300px;">
+                                <img class="card-img-top" src="data:image/png;base64,@Convert.ToBase64String(item.PhotoBytes)" alt="Image">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h4>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        Phone: @Html.DisplayFor(modelItem => item.Phone)
+                                    </li>
+                                    <li class="list-group-item">
+                                        City: @Html.DisplayFor(modelItem => item.City)
+                                    </li>
+                                    <li class="list-group-item">
+                                        Passport Office: @Html.DisplayFor(modelItem => item.PassportOfficeName)
+                                    </li>
+                                </ul>
+                                <div class="">
+                                    <!-- Birth Proof PDF -->
+                                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.BirthProofBytes)')" class="btn btn-primary custom-button btn-vertical-center">View Birth Proof</a>
+                                    <!-- Identity Proof PDF -->
+                                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.IdentityProofBytes)')" class="btn btn-primary custom-button btn-vertical-center">View Identity Proof</a>
+                                    <!-- Nationality Proof PDF -->
+                                    <a href="javascript:void(0);" onclick="openPdf('@Convert.ToBase64String(item.NationalityProofBytes)')" class="btn btn-primary custom-button btn-vertical-center">View Nationality Proof</a>
+                                </div>
+                                <div class="text-center">
+                                    @if (item.SignatureBytes != null)
+                                    {
+                                        <img src="data:image/png;base64,@Convert.ToBase64String(item.SignatureBytes)" alt="Signature" style="height: 100px; width: 250px;">
+                                    }
+                                    else
+                                    {
+                                        <span>No Signature</span>
+                                    }
+                                </div>
+
+                                <div class="text-center custom-footer">
+                                    @Html.ActionLink("Approve", "Approve", new { id = item.RegistrationId }, new { @class = "btn btn-success " })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         function openPdf(base64Pdf) {

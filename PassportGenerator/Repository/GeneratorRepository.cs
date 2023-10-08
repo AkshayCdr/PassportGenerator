@@ -330,14 +330,25 @@ namespace PassportGenerator.Repository
                 List<PassportGeneratedList> list = new List<PassportGeneratedList>();
                 foreach (DataRow table in table.Rows)
                 {
+                    DateTime dobWithTime = DateTime.Parse(table["Dob"].ToString());
+                    DateTime DateOfIssueWithTime = DateTime.Parse(table["DateOfIssue"].ToString());
+                    DateTime DateOfExpiryWithTime = DateTime.Parse(table["DateOfExpiry"].ToString());
+                    string dobWithoutTime = dobWithTime.Date.ToString("dd/MM/yyyy");
+                    string DateOfIssueWithoutTime = DateOfIssueWithTime.Date.ToString("dd/MM/yyyy");
+                    string DateOfExpiryWithoutTime = DateOfExpiryWithTime.Date.ToString("dd/MM/yyyy");
                     list.Add(new PassportGeneratedList
                     {
                         PhotoBytes = (byte[])table["Photo"],
                         FirstName = table["FirstName"].ToString(),
                         LastName = table["LastName"].ToString(),
                         Email = table["Email"].ToString(),
+                        Dob = dobWithoutTime, 
                         PassportNumber = table["PassportNumber"].ToString(),
-                        PassportOfficeName = table["PassportOfficeName"].ToString()
+                        State = table["State"].ToString(),
+                        PassportOfficeName = table["PassportOfficeName"].ToString(),
+                        DateOfIssue = DateOfIssueWithoutTime,
+                        DateOfExpiry = DateOfExpiryWithoutTime,
+                        SignatureBytes = (byte[])table["Signature"]
                     });
                 }
                 return list;

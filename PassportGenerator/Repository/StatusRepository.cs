@@ -106,7 +106,8 @@ namespace PassportGenerator.Repository
                                     //Email = reader.GetString(reader.GetOrdinal("Email")),
                                     StatusName = reader.GetString(reader.GetOrdinal("Status")),
                                     RegistrationId = reader.GetInt32(reader.GetOrdinal("RegistrationId")),
-                                    PoliceApproval = reader.GetString(reader.GetOrdinal("PoliceApproval"))
+                                    //PoliceApproval = reader.GetString(reader.GetOrdinal("PoliceApproval"))
+                                    PoliceApproval = reader.IsDBNull(reader.GetOrdinal("PoliceApproval")) ? null : reader.GetString(reader.GetOrdinal("PoliceApproval"))
                                     //RegistrationId = registrationId
                                 };
 
